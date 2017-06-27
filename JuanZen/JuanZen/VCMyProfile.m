@@ -85,7 +85,7 @@
     return 0.0001f;
 }
 
-- (void)selectCell:(NSInteger)type{
+- (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{
     NSLog(@"%zi",type);
 }
 

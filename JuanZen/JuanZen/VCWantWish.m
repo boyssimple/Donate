@@ -8,10 +8,17 @@
 
 #import "VCWantWish.h"
 #import "CellDownSelection.h"
+#import "CustomAlertView.h"
 
 @interface VCWantWish ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UIButton  *btnSubmit;
+@property (nonatomic, strong) NSArray  *contactList;
+
+
+@property (nonatomic, strong) NSString *contactType;//联系方式
+@property (nonatomic, assign) NSInteger contactTypeId;
+@property (nonatomic, strong) NSString *contactText;//联系方式
 
 @end
 
@@ -24,6 +31,25 @@
     [self.view addSubview:self.btnSubmit];
     self.title = @"我要许愿";
 }
+
+- (void)loadContacts{
+    self.contactList = @[@{@"type_id":@"1",@"type_title":@"微信"},@{@"type_id":@"2",@"type_title":@"QQ"},@{@"type_id":@"3",@"type_title":@"手机"}];
+    NSMutableArray *titleArray = [NSMutableArray arrayWithCapacity:self.contactList.count];
+    for (NSDictionary *dic in self.contactList) {
+        [titleArray addObject:[dic objectForKey:@"type_title"]];
+    }
+    
+    CustomAlertView *action = [[CustomAlertView alloc]initWithActions:titleArray withTitle:@"选择联系方式" withBlock:^(NSInteger btnIndex) {
+        NSDictionary *data = [self.contactList objectAtIndex:btnIndex];
+        CellDownSelection*cell = (CellDownSelection*)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        [cell updateData:[data objectForKey:@"type_title"] withType:2];
+        cell.tfSecondText.userInteractionEnabled = YES;
+        self.contactType = [data objectForKey:@"type_title"];
+        self.contactTypeId = [[data objectForKey:@"type_id"]integerValue];
+    }];
+    [action show];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -59,6 +85,14 @@
     }else if (indexPath.row == 2) {
         cell.title = @"联系方式";
         cell.type = 2;
+        [cell updateData:self.contactType withType:0];
+        if (self.contactTypeId == 0) {
+            cell.tfSecondText.userInteractionEnabled = NO;
+        }else{
+            cell.tfSecondText.userInteractionEnabled = YES;
+        }
+        [cell.tfSecondText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        cell.tfSecondText.tag = 100;
     }else if (indexPath.row == 3) {
         cell.title = @"希望时间";
         cell.type = 1;
@@ -69,8 +103,7 @@
         cell.type = 6;
         cell.title = @"我要打上“万分感激”在地图上";
     }
-    
-    
+    cell.index = indexPath;
     return cell;
 }
 
@@ -82,9 +115,31 @@
     return 0.0001f;
 }
 
-- (void)selectCell:(NSInteger)type{
+- (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{
     NSLog(@"%zi",type);
+    if(type == 0 || type == 1){
+        if (index.row == 0) {
+            
+        }else if(index.row == 1){
+            
+        }else if(index.row == 2){
+            [self loadContacts];
+        }
+        
+    }
 }
+
+
+- (void)textFieldDidChange:(UITextField*)textField{
+    if (textField.tag == 100) {
+        self.contactText = textField.text;
+    }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
 
 - (UITableView*)table{
     if (!_table) {

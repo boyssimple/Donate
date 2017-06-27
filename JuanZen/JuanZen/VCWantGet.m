@@ -122,7 +122,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)selectCell:(NSInteger)type{
+- (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{
     NSLog(@"%zi",type);
 }
 

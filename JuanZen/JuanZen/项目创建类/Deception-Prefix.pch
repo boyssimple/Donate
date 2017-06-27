@@ -85,7 +85,7 @@ typedef NS_ENUM(NSUInteger, YJPopoverArrowDirection) {
 #define DANHUICOLOR             [UIColor colorWithRed:141/255.0 green:141/255.0 blue:141/255.0 alpha:1.0]
 
 
-
+#define Alert(msg) [[[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show]
 
 #define APPKEY @"fjm1hLsIQGtszqFS0ePZKCCQDncndCmp"
 

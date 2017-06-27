@@ -104,11 +104,12 @@
 }
 
 - (void)submitClick{
+    [self.view endEditing:YES];
     VCGoodsDetail *vc = [[VCGoodsDetail alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)selectCell:(NSInteger)type{
+- (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{
     NSLog(@"%zi",type);
 }
 

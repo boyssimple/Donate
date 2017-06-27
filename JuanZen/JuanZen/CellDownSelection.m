@@ -7,18 +7,15 @@
 //
 
 #import "CellDownSelection.h"
-#import "CWStarRateView.h"
 
 @interface CellDownSelection()
 @property (nonatomic, strong) UILabel *lbTitle;
 @property (nonatomic, strong) UILabel *lbText;
-@property (nonatomic, strong) UITextField *tfText;
 @property (nonatomic, strong) UIView *vTextBg;
-@property (nonatomic, strong) UITextField *tfSecondText;
 @property (nonatomic, strong) UIImageView *ivDown;
 @property (nonatomic, strong) UIView *vLine;
 @property (nonatomic, strong) UIButton *btnAdd;
-@property (strong, nonatomic) CWStarRateView *starRateView;
+@property (nonatomic, strong) UIButton *btnDelete;
 @property (nonatomic, strong) UITextView *textView;
 
 
@@ -47,7 +44,6 @@
         _lbText = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbText.font = [UIFont systemFontOfSize:14];
         _lbText.hidden = YES;
-        _lbText.text = @"我是LB";
         _lbText.textColor = [UIColor grayColor];
         _lbText.userInteractionEnabled = YES;
         [self.contentView addSubview:_lbText];
@@ -64,7 +60,9 @@
         
         _tfSecondText = [[UITextField alloc]initWithFrame:CGRectZero];
         _tfSecondText.font = [UIFont systemFontOfSize:14];
-        _tfSecondText.placeholder = @"请填写您的微信号码";
+        _tfSecondText.placeholder = @"请填写您的号码";
+        _tfSecondText.userInteractionEnabled = NO;
+        _tfSecondText.textColor = [UIColor grayColor];
         [_vTextBg addSubview:_tfSecondText];
         
         _ivDown = [[UIImageView alloc]initWithFrame:CGRectZero];
@@ -78,6 +76,15 @@
         _vLine.backgroundColor = RGB3(241);
         [self.contentView addSubview:_vLine];
         
+        
+        _ivImage = [[UIImageView alloc]initWithFrame:CGRectZero];
+        _ivImage.layer.cornerRadius = 3;
+        _ivImage.layer.borderWidth = 0.5;
+        _ivImage.layer.borderColor = RGB3(230).CGColor;
+        _ivImage.clipsToBounds = YES;
+        _ivImage.layer.masksToBounds = YES;
+        [self.contentView addSubview:_ivImage];
+        
         _btnAdd = [[UIButton alloc]initWithFrame:CGRectZero];
         [_btnAdd setImage:[UIImage imageNamed:@"UploadImg"] forState:UIControlStateNormal];
         _btnAdd.layer.cornerRadius = 3;
@@ -87,8 +94,15 @@
         [_btnAdd addTarget:self action:@selector(uploadClick) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_btnAdd];
         
+        
+        _btnDelete = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnDelete setImage:[UIImage imageNamed:@"ImgDelete"] forState:UIControlStateNormal];
+        [_btnDelete addTarget:self action:@selector(deleteClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_btnDelete];
+        
         _starRateView = [[CWStarRateView alloc] initWithFrame:CGRectMake(ScreenWidth - 130, 0, 120, 20) numberOfStars:5];
         _starRateView.hidden = YES;
+        _starRateView.scorePercent = 0;
         [self.contentView addSubview:_starRateView];
         
         _textView = [[UITextView alloc]initWithFrame:CGRectZero];
@@ -120,15 +134,36 @@
     return self;
 }
 
+- (void)updateData:(NSString*)text withType:(NSInteger)type{
+    if(!text){
+        return;
+    }
+    if (type == 0) {
+        self.lbText.text = text;
+    }else if(type == 1){
+        self.tfText.text = text;
+    }else if(type == 2){
+        self.lbText.text = text;
+    }else if(type == 9){
+        self.lbText.text = text;
+    }
+}
+
 - (void)selectClick{
-    if ([self.delegate respondsToSelector:@selector(selectCell:)]) {
-        [self.delegate selectCell:0];
+    if ([self.delegate respondsToSelector:@selector(selectCell: with:)]) {
+        [self.delegate selectCell:0 with:self.index];
     }
 }
 
 - (void)uploadClick{
-    if ([self.delegate respondsToSelector:@selector(selectCell:)]) {
-        [self.delegate selectCell:1];
+    if ([self.delegate respondsToSelector:@selector(selectCell: with:)]) {
+        [self.delegate selectCell:1 with:self.index];
+    }
+}
+
+- (void)deleteClick{
+    if ([self.delegate respondsToSelector:@selector(selectCell: with:)]) {
+        [self.delegate selectCell:2 with:self.index];
     }
 }
 
@@ -151,7 +186,9 @@
     self.lbText.hidden = YES;
     self.tfText.hidden = YES;
     self.vTextBg.hidden = YES;
+    self.ivImage.hidden = YES;
     self.btnAdd.hidden = YES;
+    self.btnDelete.hidden = YES;
     self.starRateView.hidden = YES;
     self.textView.hidden = YES;
     
@@ -184,6 +221,11 @@
         self.backgroundColor = [UIColor clearColor];
     }else if(_type == 7){
         self.ivPhoto.hidden = NO;
+    }else if(_type == 8){
+        self.ivImage.hidden = NO;
+        self.btnDelete.hidden = NO;
+    }else if(_type == 9){
+        self.lbText.hidden = NO;
     }
     
 }
@@ -246,6 +288,21 @@
     r.origin.y = (self.mj_h - r.size.height)/2.0;
     self.btnAdd.frame = r;
     
+    r = self.ivImage.frame;
+    r.size.width = self.btnAdd.mj_w;
+    r.size.height = r.size.width;
+    r.origin.x = self.btnAdd.mj_x;
+    r.origin.y = self.btnAdd.mj_y;
+    self.ivImage.frame = r;
+    
+    r = self.btnDelete.frame;
+    r.size.width = 15;
+    r.size.height = r.size.width;
+    r.origin.x = self.ivImage.mj_x + self.ivImage.mj_w - 7;
+    r.origin.y = self.ivImage.mj_y - 7;
+    self.btnDelete.frame = r;
+    
+    
     if (self.type == 0) {
         self.tfText.mj_w = ScreenWidth - self.tfText.mj_x - 20;
         self.tfText.mj_h = [CellDownSelection calHeight:1] - 20;
@@ -261,7 +318,7 @@
         self.vTextBg.mj_h = self.tfText.mj_h;
         self.vTextBg.mj_y = self.tfText.mj_y + self.tfText.mj_h + 5;
         self.tfSecondText.mj_h = self.vTextBg.mj_h;
-    }else if(self.type == 3){
+    }else if(self.type == 3 || self.type == 8){
         self.lbTitle.mj_y = ([CellDownSelection calHeight:1] - self.lbTitle.mj_h)/2.0;
     }
     
@@ -273,10 +330,11 @@
     self.lbText.frame = r;;
     self.starRateView.mj_y = (self.mj_h - self.starRateView.mj_h)/2.0;
     
+    
     r = self.textView.frame;
-    r.size.width = self.tfSecondText.mj_w;
+    r.size.width = self.vTextBg.mj_w;
     r.size.height = self.mj_h - 20;
-    r.origin.x = self.tfSecondText.mj_x;
+    r.origin.x = ScreenWidth - 10 - r.size.width;
     r.origin.y = (self.mj_h - r.size.height)/2.0;
     self.textView.frame = r;
     
@@ -301,14 +359,15 @@
     r.origin.x = self.tfText.mj_x;
     r.origin.y = (self.mj_h - r.size.height)/2.0;
     self.ivPhoto.frame = r;
+    
 }
 
 + (CGFloat)calHeight:(NSInteger)type{
-    if (type == 1) {
+    if (type == 1 || type == 9) {
         return 50;
     }else if(type == 2){
         return 85;
-    }else if(type == 3){
+    }else if(type == 3 || type == 8){
         return 70;
     }else if(type == 4){
         return 40;

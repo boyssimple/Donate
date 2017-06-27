@@ -19,6 +19,15 @@
 		294AE1B11F00F4C7007F56D8 /* CellDownSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1B01F00F4C7007F56D8 /* CellDownSelection.m */; };
 		294AE1B41F01095B007F56D8 /* CWStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1B31F01095B007F56D8 /* CWStarRateView.m */; };
 		294AE1B71F01146B007F56D8 /* VCWantWish.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1B61F01146B007F56D8 /* VCWantWish.m */; };
+		294AE1BA1F020708007F56D8 /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1B91F020708007F56D8 /* CustomAlertView.m */; };
+		294AE1C71F0229DC007F56D8 /* RXHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1BD1F0229DC007F56D8 /* RXHexColor.m */; };
+		294AE1C81F0229DC007F56D8 /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = 294AE1BE1F0229DC007F56D8 /* city.json */; };
+		294AE1C91F0229DC007F56D8 /* RXGetAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1C01F0229DC007F56D8 /* RXGetAddress.m */; };
+		294AE1CA1F0229DC007F56D8 /* RXJDAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1C11F0229DC007F56D8 /* RXJDAddressPickerView.m */; };
+		294AE1CB1F0229DC007F56D8 /* RXJDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1C41F0229DC007F56D8 /* RXJDButton.m */; };
+		294AE1CC1F0229DC007F56D8 /* RXJDTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1C61F0229DC007F56D8 /* RXJDTableCell.m */; };
+		294AE1D21F023433007F56D8 /* CustomDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1CF1F023433007F56D8 /* CustomDatePicker.m */; };
+		294AE1D31F023433007F56D8 /* JXAlertview.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE1D11F023433007F56D8 /* JXAlertview.m */; };
 		91EEC4D21F00E1F6009DFED9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D11F00E1F6009DFED9 /* main.m */; };
 		91EEC4D51F00E1F7009DFED9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D41F00E1F7009DFED9 /* AppDelegate.m */; };
 		91EEC4D81F00E1F7009DFED9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D71F00E1F7009DFED9 /* ViewController.m */; };
@@ -152,6 +161,23 @@
 		294AE1B31F01095B007F56D8 /* CWStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWStarRateView.m; sourceTree = "<group>"; };
 		294AE1B51F01146B007F56D8 /* VCWantWish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCWantWish.h; sourceTree = "<group>"; };
 		294AE1B61F01146B007F56D8 /* VCWantWish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCWantWish.m; sourceTree = "<group>"; };
+		294AE1B81F020708007F56D8 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
+		294AE1B91F020708007F56D8 /* CustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlertView.m; sourceTree = "<group>"; };
+		294AE1BC1F0229DC007F56D8 /* RXHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXHexColor.h; sourceTree = "<group>"; };
+		294AE1BD1F0229DC007F56D8 /* RXHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXHexColor.m; sourceTree = "<group>"; };
+		294AE1BE1F0229DC007F56D8 /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.json; sourceTree = "<group>"; };
+		294AE1BF1F0229DC007F56D8 /* RXGetAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXGetAddress.h; sourceTree = "<group>"; };
+		294AE1C01F0229DC007F56D8 /* RXGetAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXGetAddress.m; sourceTree = "<group>"; };
+		294AE1C11F0229DC007F56D8 /* RXJDAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXJDAddressPickerView.m; sourceTree = "<group>"; };
+		294AE1C21F0229DC007F56D8 /* RXJDAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXJDAddressPickerView.h; sourceTree = "<group>"; };
+		294AE1C31F0229DC007F56D8 /* RXJDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXJDButton.h; sourceTree = "<group>"; };
+		294AE1C41F0229DC007F56D8 /* RXJDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXJDButton.m; sourceTree = "<group>"; };
+		294AE1C51F0229DC007F56D8 /* RXJDTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXJDTableCell.h; sourceTree = "<group>"; };
+		294AE1C61F0229DC007F56D8 /* RXJDTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXJDTableCell.m; sourceTree = "<group>"; };
+		294AE1CE1F023433007F56D8 /* CustomDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDatePicker.h; sourceTree = "<group>"; };
+		294AE1CF1F023433007F56D8 /* CustomDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDatePicker.m; sourceTree = "<group>"; };
+		294AE1D01F023433007F56D8 /* JXAlertview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXAlertview.h; sourceTree = "<group>"; };
+		294AE1D11F023433007F56D8 /* JXAlertview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXAlertview.m; sourceTree = "<group>"; };
 		91EEC4CD1F00E1F6009DFED9 /* JuanZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JuanZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91EEC4D11F00E1F6009DFED9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		91EEC4D31F00E1F6009DFED9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -361,6 +387,8 @@
 		294AE1AD1F00F459007F56D8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				294AE1CD1F023424007F56D8 /* DatePicker */,
+				294AE1BB1F0229D2007F56D8 /* Address */,
 				294AE1B21F01095B007F56D8 /* CWStarRateView.h */,
 				294AE1B31F01095B007F56D8 /* CWStarRateView.m */,
 				294AE1AF1F00F4C7007F56D8 /* CellDownSelection.h */,
@@ -373,6 +401,8 @@
 				1CDA7D5B1F0167C8000D8641 /* CellDonateProfile.m */,
 				1CDA7D601F016E06000D8641 /* CellWantGet.h */,
 				1CDA7D611F016E06000D8641 /* CellWantGet.m */,
+				294AE1B81F020708007F56D8 /* CustomAlertView.h */,
+				294AE1B91F020708007F56D8 /* CustomAlertView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -382,6 +412,35 @@
 			children = (
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		294AE1BB1F0229D2007F56D8 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				294AE1BC1F0229DC007F56D8 /* RXHexColor.h */,
+				294AE1BD1F0229DC007F56D8 /* RXHexColor.m */,
+				294AE1BE1F0229DC007F56D8 /* city.json */,
+				294AE1BF1F0229DC007F56D8 /* RXGetAddress.h */,
+				294AE1C01F0229DC007F56D8 /* RXGetAddress.m */,
+				294AE1C11F0229DC007F56D8 /* RXJDAddressPickerView.m */,
+				294AE1C21F0229DC007F56D8 /* RXJDAddressPickerView.h */,
+				294AE1C31F0229DC007F56D8 /* RXJDButton.h */,
+				294AE1C41F0229DC007F56D8 /* RXJDButton.m */,
+				294AE1C51F0229DC007F56D8 /* RXJDTableCell.h */,
+				294AE1C61F0229DC007F56D8 /* RXJDTableCell.m */,
+			);
+			name = Address;
+			sourceTree = "<group>";
+		};
+		294AE1CD1F023424007F56D8 /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				294AE1CE1F023433007F56D8 /* CustomDatePicker.h */,
+				294AE1CF1F023433007F56D8 /* CustomDatePicker.m */,
+				294AE1D01F023433007F56D8 /* JXAlertview.h */,
+				294AE1D11F023433007F56D8 /* JXAlertview.m */,
+			);
+			name = DatePicker;
 			sourceTree = "<group>";
 		};
 		91EEC4C41F00E1F6009DFED9 = {
@@ -908,6 +967,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				294AE1C81F0229DC007F56D8 /* city.json in Resources */,
 				91EEC4E01F00E1F7009DFED9 /* LaunchScreen.storyboard in Resources */,
 				91EEC6071F00E30F009DFED9 /* MBProgressHUD.bundle in Resources */,
 				91EEC4DD1F00E1F7009DFED9 /* Assets.xcassets in Resources */,
@@ -961,9 +1021,11 @@
 				91EEC5FE1F00E30F009DFED9 /* LGLAlertView.m in Sources */,
 				91EEC5D31F00E30F009DFED9 /* MJRefreshAutoNormalFooter.m in Sources */,
 				91EEC5D91F00E30F009DFED9 /* MJRefreshNormalHeader.m in Sources */,
+				294AE1D31F023433007F56D8 /* JXAlertview.m in Sources */,
 				91EEC5ED1F00E30F009DFED9 /* UIImage+WebP.m in Sources */,
 				91EEC5161F00E2C3009DFED9 /* categoryCollectionViewCell.m in Sources */,
 				91EEC5E31F00E30F009DFED9 /* SDImageCache.m in Sources */,
+				294AE1CC1F0229DC007F56D8 /* RXJDTableCell.m in Sources */,
 				91EEC5CA1F00E30F009DFED9 /* BDImagePicker.m in Sources */,
 				1CDA7D5C1F0167C8000D8641 /* CellDonateProfile.m in Sources */,
 				91EEC5C81F00E30F009DFED9 /* AFURLResponseSerialization.m in Sources */,
@@ -979,6 +1041,7 @@
 				91EEC5F91F00E30F009DFED9 /* UIWebView+AFNetworking.m in Sources */,
 				91EEC5F11F00E30F009DFED9 /* AFAutoPurgingImageCache.m in Sources */,
 				91EEC5D41F00E30F009DFED9 /* MJRefreshAutoStateFooter.m in Sources */,
+				294AE1C71F0229DC007F56D8 /* RXHexColor.m in Sources */,
 				91EEC5EB1F00E30F009DFED9 /* UIImage+GIF.m in Sources */,
 				91EEC5E41F00E30F009DFED9 /* SDWebImageCompat.m in Sources */,
 				1CDA7D5F1F016D73000D8641 /* VCWantGet.m in Sources */,
@@ -993,12 +1056,16 @@
 				91EEC5E71F00E30F009DFED9 /* SDWebImageDownloaderOperation.m in Sources */,
 				91EEC5CF1F00E30F009DFED9 /* MJRefreshComponent.m in Sources */,
 				91EEC6021F00E30F009DFED9 /* UITextView+Placeholder.m in Sources */,
+				294AE1CA1F0229DC007F56D8 /* RXJDAddressPickerView.m in Sources */,
 				91EEC6061F00E30F009DFED9 /* MBProgressHUD+MJ.m in Sources */,
+				294AE1BA1F020708007F56D8 /* CustomAlertView.m in Sources */,
 				91EEC5F61F00E30F009DFED9 /* UIImageView+AFNetworking.m in Sources */,
 				91EEC4D51F00E1F7009DFED9 /* AppDelegate.m in Sources */,
+				294AE1CB1F0229DC007F56D8 /* RXJDButton.m in Sources */,
 				91EEC5DE1F00E30F009DFED9 /* UIScrollView+MJExtension.m in Sources */,
 				91EEC4D21F00E1F6009DFED9 /* main.m in Sources */,
 				91EEC5CE1F00E30F009DFED9 /* MJRefreshBackFooter.m in Sources */,
+				294AE1D21F023433007F56D8 /* CustomDatePicker.m in Sources */,
 				294AE1B41F01095B007F56D8 /* CWStarRateView.m in Sources */,
 				91EEC60C1F00E30F009DFED9 /* UIView+FlexibeFrame.m in Sources */,
 				91EEC5D71F00E30F009DFED9 /* MJRefreshBackStateFooter.m in Sources */,
@@ -1029,6 +1096,7 @@
 				91EEC5D11F00E30F009DFED9 /* MJRefreshHeader.m in Sources */,
 				91EEC5EA1F00E30F009DFED9 /* UIButton+WebCache.m in Sources */,
 				91EEC5E61F00E30F009DFED9 /* SDWebImageDownloader.m in Sources */,
+				294AE1C91F0229DC007F56D8 /* RXGetAddress.m in Sources */,
 				91EEC5DA1F00E30F009DFED9 /* MJRefreshStateHeader.m in Sources */,
 				91EEC6001F00E30F009DFED9 /* PhotoView.m in Sources */,
 			);
@@ -1181,6 +1249,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = PA5REWWP2Y;
 				INFOPLIST_FILE = JuanZen/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yibyi.com.cn.JuanZen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1193,6 +1262,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = PA5REWWP2Y;
 				INFOPLIST_FILE = JuanZen/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yibyi.com.cn.JuanZen;
 				PRODUCT_NAME = "$(TARGET_NAME)";

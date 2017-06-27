@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UITextField *tfSecondText;
 @property (nonatomic, strong) UIImageView *ivImage;
 @property (strong, nonatomic) CWStarRateView *starRateView;
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UIImageView *ivPhoto;
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, assign) NSInteger type;  //0 表示普通选择  1表示可直接输入   2 表示联系方式选择    3表示上传图片   4表示星级   5 表示备注内容较大     6 check    7 头像    8 上传后显示的图片    9时间或地址

@@ -16,13 +16,11 @@
 @property (nonatomic, strong) UIView *vLine;
 @property (nonatomic, strong) UIButton *btnAdd;
 @property (nonatomic, strong) UIButton *btnDelete;
-@property (nonatomic, strong) UITextView *textView;
 
 
 @property (nonatomic, strong) UIButton *btnCheck;
 @property (nonatomic, strong) UILabel *lbCheck;
 
-@property (nonatomic, strong) UIImageView *ivPhoto;
 @end
 @implementation CellDownSelection
 
@@ -146,6 +144,8 @@
         self.lbText.text = text;
     }else if(type == 9){
         self.lbText.text = text;
+    }else if(type == 5){
+        self.textView.text = text;
     }
 }
 
@@ -169,6 +169,10 @@
 
 - (void)checkClick:(UIButton*)sender{
     sender.selected = !sender.selected;
+    
+    if ([self.delegate respondsToSelector:@selector(selectCell: with:)]) {
+        [self.delegate selectCell:3 with:self.index];
+    }
 }
 
 - (void)setTitle:(NSString *)title{

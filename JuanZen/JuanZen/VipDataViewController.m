@@ -16,7 +16,7 @@
 #import "JXAlertview.h"
 #import "CustomDatePicker.h"
 #import "AFHTTPSessionManager.h"
-
+#import "VCMyProfile.h"
 #import "MapViewController.h"
 
 @interface VipDataViewController ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate,UITextFieldDelegate,CWStarRateViewDelegate,CustomAlertDelegete>
@@ -453,11 +453,12 @@
     
     
     
+    VCMyProfile *vc = [[VCMyProfile alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
     
-    
+    /*
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        MapViewController *vc = [[MapViewController alloc]init];
         
         
         
@@ -466,6 +467,8 @@
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         window.rootViewController = nav;
     });
+     
+     */
 }
 
 - (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{
@@ -534,6 +537,16 @@
     }
 }
 
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.view endEditing:YES];
+}
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
 
 }
@@ -554,10 +567,6 @@
     }else if (textField.tag == 106) {
         self.detailAddress = textField.text;
     }
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
 }
 
 - (UITableView*)table{

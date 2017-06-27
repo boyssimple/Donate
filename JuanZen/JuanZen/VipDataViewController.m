@@ -15,6 +15,7 @@
 #import "RXJDAddressPickerView.h"
 #import "JXAlertview.h"
 #import "CustomDatePicker.h"
+#import "AFHTTPSessionManager.h"
 
 @interface VipDataViewController ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate,UITextFieldDelegate,CWStarRateViewDelegate,CustomAlertDelegete>
 @property (nonatomic, strong) UITableView *table;
@@ -46,6 +47,7 @@
 @property (nonatomic, strong) NSString *pCode;
 @property (nonatomic, strong) NSString *cCode;
 @property (nonatomic, strong) NSString *aCode;
+@property (nonatomic, strong) NSString *userId;
 
 @property (nonatomic, strong)RXJDAddressPickerView *threePicker;
 @property (nonatomic, strong) CustomDatePicker *Dpicker;
@@ -418,20 +420,25 @@
                            @"old_new":@(self.oldLevel),
                            @"fre_use":@(self.useLevel),
                            @"cle_lin":@(self.clearLevel)};
-    NSString     *urlString = [NSString stringWithFormat:@"%@",@"/api/user_add"];
+    NSString     *urlString = [NSString stringWithFormat:@"%@",@"/api.php/index/user_add"];
+    
     [[RequsetPostTool requestNewWorkWithBaseURL] POST:urlString parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [formData appendPartWithFileData:data name:@"graphic" fileName:@"headImage.png" mimeType:@"image/png"];
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
+            self.userId = [responseObject objectForKey:@"user_id"];
             [self showHint:@"提交成功!"];
         }else {
             NSLog(@"%@",responseObject[@"msg"]);
             [self showHint:@"提交失败!"];
         }
+        [self hideHud];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self showHint:@"提交失败!"];
+        [self hideHud];
     }];
-    [self hideHud];
+    
 }
 
 - (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{

@@ -22,6 +22,8 @@
 
 #import "YWRoundAnnotationView.h"
 #import "YWPointAnnotation.h"
+#import "VCWantWish.h"
+#import "VCWantDonate.h"
 
 #define YWidth [UIScreen  mainScreen].bounds.size.width
 #define YWHeight [UIScreen  mainScreen].bounds.size.height

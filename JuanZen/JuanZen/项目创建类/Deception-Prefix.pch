@@ -1,0 +1,94 @@
+//
+//  Deception-Prefix.pch
+//  Donate
+//
+//  Created by yibyi on 2017/6/14.
+//  Copyright © 2017年 yibyi. All rights reserved.
+//
+
+#ifndef Deception_Prefix_pch
+#define Deception_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#import "baseViewController.h"
+#import <UIKit/UIKit.h>
+#import "UIView+FlexibeFrame.h"
+#import "FlexibeFrame.h"
+#import "UIViewController+HUD.h"
+#import "UIImageView+WebCache.h"
+//网络
+#import "AFNetworking.h"
+//请求工具
+#import "RequsetPostTool.h"
+
+#import "MJRefresh.h"
+#import "MBProgressHUD.h"
+#import "ReaveImformation.h"
+#import "ImageBrowserViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
+#import "QZHModel.h"
+
+
+#define IPHONED_SCREEN  CGSizeMake(320,568)
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+#define YouPaiCurrentWindow          ((UIWindow *)[[UIApplication sharedApplication].windows firstObject])
+
+//popView箭头类型
+typedef NS_ENUM(NSUInteger, YJPopoverArrowDirection) {
+    YJPopoverArrowDirection_up,         //箭头向上
+    YJPopoverArrowDirection_left,       //箭头向左
+    YJPopoverArrowDirection_down,       //箭头向下
+    YJPopoverArrowDirection_right       //箭头向右
+};
+#import "LGLAlertView.h"
+#define DEFAULTURL              @"http://donation.cq1b1.com"
+#define IMAGEURL                @"http://donation.cq1b1.com"
+// 版本号
+#define VERSION                 @"1.1"
+// apiKey
+#define APIKEY                  @"f74dd39951a0b6bbed0fe73606ea5476"
+// 系统类型
+#define TERMINAL                @"ios"
+#define ViewBackGroundColor [UIColor colorWithRed:238.0 / 255.0  green:238.0 / 255.0  blue:238.0 / 255.0  alpha:1]
+#define RGB(r,g,b) [UIColor colorWithRed:r / 255.0  green:g / 255.0  blue:b / 255.0  alpha:1]
+#define RGB3(r) [UIColor colorWithRed:r / 255.0  green:r / 255.0  blue:r / 255.0  alpha:1]
+// 默认图片
+#define DEFAULTIMAGE            [UIImage imageNamed:@"defaultImage"]
+// 默认头像
+#define HEADDEFAULTIMAGE        [UIImage imageNamed:@"defaultHeadImage"]
+
+// tabbar导航颜色
+#define TABBARCOLOR             [UIColor colorWithRed:30/255.0 green:42/255.0 blue:58/255.0 alpha:1.0]
+
+// 主题色
+#define MAINCOLOR               [UIColor redColor]
+
+// 背景色
+#define BACKGROUNDCOLOR         [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0]
+
+// 线条颜色
+#define LINECOLOR               [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1.0]
+
+// 黑色字体
+#define BLCKFONTCOLOR           [UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0]
+
+// 灰色字体
+#define HUICOLOR                [UIColor colorWithRed:163/255.0 green:163/255.0 blue:163/255.0 alpha:1.0]
+
+// 淡灰色字体
+#define DANHUICOLOR             [UIColor colorWithRed:141/255.0 green:141/255.0 blue:141/255.0 alpha:1.0]
+
+
+
+
+#define APPKEY @"fjm1hLsIQGtszqFS0ePZKCCQDncndCmp"
+
+
+
+#endif /* Deception_Prefix_pch */

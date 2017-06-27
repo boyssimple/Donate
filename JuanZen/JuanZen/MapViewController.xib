@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqo-wV-dSY">
+                    <rect key="frame" x="0.0" y="627" width="187.5" height="40"/>
+                    <color key="backgroundColor" red="0.98595815896987915" green="0.017002323642373085" blue="6.6074870119336993e-05" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="5BZ-ef-Lsn"/>
+                    </constraints>
+                    <state key="normal" title="我要许愿">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEe-tX-LVv">
+                    <rect key="frame" x="187.5" y="627" width="187.5" height="40"/>
+                    <color key="backgroundColor" red="0.99240392446517944" green="0.75806760787963867" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="我要捐赠">
+                        <color key="titleColor" red="0.0014411207521334291" green="0.020394936203956604" blue="0.28599494695663452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天我附近有什么可以免费拿取的？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWe-3h-03G">
+                    <rect key="frame" x="7" y="69" width="330" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Jt0-gf-QOF"/>
+                        <constraint firstAttribute="width" constant="330" id="z2h-Dr-2rs"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Suv-6W-xKA">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                </navigationBar>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Yw1-Bx-7Cb">
+                    <rect key="frame" x="0.0" y="401" width="375" height="200"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="nWj-3x-MzF"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rZO-WQ-nXt">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="zEe-tX-LVv" firstAttribute="leading" secondItem="Eqo-wV-dSY" secondAttribute="trailing" id="JYt-86-ukb"/>
+                <constraint firstItem="Suv-6W-xKA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VDH-KH-QQO"/>
+                <constraint firstAttribute="bottom" secondItem="zEe-tX-LVv" secondAttribute="bottom" id="XYV-cj-4By"/>
+                <constraint firstItem="zEe-tX-LVv" firstAttribute="leading" secondItem="Eqo-wV-dSY" secondAttribute="trailing" id="cKw-7Z-cB6"/>
+                <constraint firstItem="Yw1-Bx-7Cb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fWb-aC-6hC"/>
+                <constraint firstAttribute="bottom" secondItem="Eqo-wV-dSY" secondAttribute="bottom" id="fgL-Cl-Dzs"/>
+                <constraint firstItem="zEe-tX-LVv" firstAttribute="top" secondItem="Yw1-Bx-7Cb" secondAttribute="bottom" constant="26" id="g04-hS-QyI"/>
+                <constraint firstAttribute="trailing" secondItem="zEe-tX-LVv" secondAttribute="trailing" id="lUX-jI-nIp"/>
+                <constraint firstItem="hWe-3h-03G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="7" id="mEU-R0-Wx7"/>
+                <constraint firstItem="Eqo-wV-dSY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mFU-Su-t0A"/>
+                <constraint firstItem="Suv-6W-xKA" firstAttribute="trailing" secondItem="Yw1-Bx-7Cb" secondAttribute="trailing" id="ofZ-zd-pY7"/>
+                <constraint firstItem="Suv-6W-xKA" firstAttribute="leading" secondItem="Eqo-wV-dSY" secondAttribute="leading" id="pgX-ci-pkJ"/>
+                <constraint firstItem="zEe-tX-LVv" firstAttribute="height" secondItem="Eqo-wV-dSY" secondAttribute="height" id="pw0-In-Cvv"/>
+                <constraint firstItem="Suv-6W-xKA" firstAttribute="leading" secondItem="Yw1-Bx-7Cb" secondAttribute="leading" id="tK4-0Q-dHJ"/>
+                <constraint firstAttribute="trailing" secondItem="Suv-6W-xKA" secondAttribute="trailing" id="uFV-EZ-zUi"/>
+                <constraint firstItem="zEe-tX-LVv" firstAttribute="width" secondItem="Eqo-wV-dSY" secondAttribute="width" id="vhG-Yh-ciQ"/>
+                <constraint firstItem="hWe-3h-03G" firstAttribute="top" secondItem="Suv-6W-xKA" secondAttribute="bottom" constant="25" id="vrF-cy-rJJ"/>
+                <constraint firstItem="Yw1-Bx-7Cb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="xPe-bS-NMU"/>
+                <constraint firstAttribute="trailing" secondItem="Yw1-Bx-7Cb" secondAttribute="trailing" id="ym5-9r-S6a"/>
+            </constraints>
+            <point key="canvasLocation" x="-30.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

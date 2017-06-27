@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MapCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="222" height="79"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="222" height="79"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DQg-Vc-HUS">
+                        <rect key="frame" x="0.0" y="0.0" width="222" height="79"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人才" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhM-x4-nqG">
+                        <rect key="frame" x="94" y="29" width="35" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="qhM-x4-nqG" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="1av-QN-w0K"/>
+                <constraint firstAttribute="bottom" secondItem="DQg-Vc-HUS" secondAttribute="bottom" id="ABm-qd-m1W"/>
+                <constraint firstItem="DQg-Vc-HUS" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="GC7-fe-HPg"/>
+                <constraint firstItem="DQg-Vc-HUS" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="a3S-Uq-Vis"/>
+                <constraint firstItem="qhM-x4-nqG" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="hSl-1i-3Jt"/>
+                <constraint firstAttribute="trailing" secondItem="DQg-Vc-HUS" secondAttribute="trailing" id="o9j-go-i3k"/>
+                <constraint firstItem="DQg-Vc-HUS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rvB-gj-qGN"/>
+                <constraint firstItem="DQg-Vc-HUS" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="yT6-TQ-NSq"/>
+            </constraints>
+            <size key="customSize" width="222" height="79"/>
+            <connections>
+                <outlet property="image" destination="DQg-Vc-HUS" id="bhj-8L-wxh"/>
+                <outlet property="label" destination="qhM-x4-nqG" id="see-8T-U48"/>
+            </connections>
+            <point key="canvasLocation" x="138" y="73.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

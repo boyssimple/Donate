@@ -17,6 +17,8 @@
 #import "CustomDatePicker.h"
 #import "AFHTTPSessionManager.h"
 
+#import "MapViewController.h"
+
 @interface VipDataViewController ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate,UITextFieldDelegate,CWStarRateViewDelegate,CustomAlertDelegete>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UIButton  *btnSubmit;
@@ -334,6 +336,7 @@
 }
 
 - (void)submitClick{
+    /*
     [self.view endEditing:YES];
     
     NSMutableDictionary *parmas = [NSMutableDictionary dictionary];
@@ -428,7 +431,15 @@
         NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
             self.userId = [responseObject objectForKey:@"user_id"];
+            
+            
             [self showHint:@"提交成功!"];
+            
+            
+            
+            MapViewController *vc = [[MapViewController alloc]init];
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            window.rootViewController = vc;
         }else {
             NSLog(@"%@",responseObject[@"msg"]);
             [self showHint:@"提交失败!"];
@@ -438,7 +449,23 @@
         [self showHint:@"提交失败!"];
         [self hideHud];
     }];
+     */
     
+    
+    
+    
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        MapViewController *vc = [[MapViewController alloc]init];
+        
+        
+        
+        UIViewController *vc = [[UIViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        window.rootViewController = nav;
+    });
 }
 
 - (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{

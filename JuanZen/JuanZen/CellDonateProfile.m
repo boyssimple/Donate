@@ -12,7 +12,6 @@
 @property (nonatomic, strong) UILabel *lbTitle;
 @property (nonatomic, strong) UIView *vLine;
 @property (nonatomic, strong) UIButton *btnAdd;
-@property (nonatomic, strong) UILabel *lbText;
 @end
 @implementation CellDonateProfile
 

@@ -8,14 +8,15 @@
 
 #import "ViewHeaderGoods.h"
 #import "CWStarRateView.h"
+#import "SDCycleScrollView.h"
 
 @interface ViewHeaderGoods()
 @property (nonatomic, strong) UILabel *lbTitle;
-@property (nonatomic, strong) UIImageView *ivImg;
 @property (nonatomic, strong) UIImageView *ivPhoto;
 @property (nonatomic, strong) UILabel *lbName;
 @property (nonatomic, strong) UILabel *lbComment;
 @property (strong, nonatomic) CWStarRateView *starRateView;
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 
 @end
 @implementation ViewHeaderGoods
@@ -30,10 +31,6 @@
         _lbTitle.textColor = [UIColor grayColor];
         [self addSubview:_lbTitle];
 
-        _ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivImg.userInteractionEnabled = YES;
-        [_ivImg sd_setImageWithURL:[NSURL URLWithString:@"http://image.elegantliving.ceconline.com/320000/320100/20110815_03_52.jpg"]];
-        [self addSubview:_ivImg];
         
         _ivPhoto = [[UIImageView alloc]initWithFrame:CGRectZero];
         _ivPhoto.layer.cornerRadius = 20.f;
@@ -41,7 +38,6 @@
         _ivPhoto.layer.borderColor = RGB3(221).CGColor;
         _ivPhoto.layer.borderWidth = 4.f;
         _ivPhoto.clipsToBounds = YES;
-        [_ivPhoto sd_setImageWithURL:[NSURL URLWithString:@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1074344932,2251510853&fm=26&gp=0.jpg"]];
         [self addSubview:_ivPhoto];
         
         
@@ -57,14 +53,36 @@
         [self addSubview:_lbComment];
         
         _starRateView = [[CWStarRateView alloc] initWithFrame:CGRectMake(ScreenWidth - 130, 0, 120, 20) numberOfStars:5];
+        _starRateView.scorePercent = 0;
         [self addSubview:_starRateView];
+        
+        self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:nil placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        
+        self.cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+        self.cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+        [self addSubview:self.cycleScrollView];
     }
     return self;
 }
 
-- (void)updateData{
-    self.lbTitle.text = @"小孩子衣服九成新";
-    self.lbName.text = @"茶宝儿";
+- (void)updateData:(NSDictionary*)data{
+    self.lbTitle.text = [[data objectForKey:@"info"] objectForKey:@"goods_name"];
+    self.lbName.text = [[data objectForKey:@"u_info"] objectForKey:@"user_name"];
+    NSString *url = [[data objectForKey:@"u_info"] objectForKey:@"head_graphic"];
+    if(url && ![url isKindOfClass:[NSNull class]]){
+        [self.ivPhoto sd_setImageWithURL:[NSURL URLWithString:url]];
+    }
+    NSMutableArray *images = [NSMutableArray array];
+    NSArray *imagesURLStrings = [data objectForKey:@"imglist"];
+    for (NSDictionary *dic in imagesURLStrings) {
+        [images addObject:[NSString stringWithFormat:@"%@%@",IMAGEURL,[dic objectForKey:@"graphic"]]];
+    }
+    
+    self.cycleScrollView.imageURLStringsGroup = images;
+    
+    
+    self.starRateView.scorePercent = [[[data objectForKey:@"u_info"] objectForKey:@"evaluate"]floatValue];
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews{
@@ -77,18 +95,18 @@
     r.origin.y = 15;
     self.lbTitle.frame = r;
     
-    r = self.ivImg.frame;
+    r = self.cycleScrollView.frame;
     r.size.width = ScreenWidth - 20;
     r.size.height = r.size.width / 2.3;
     r.origin.x = 10;
     r.origin.y = self.lbTitle.mj_y + self.lbTitle.mj_h + 10;
-    self.ivImg.frame = r;
+    self.cycleScrollView.frame = r;
     
     r = self.ivPhoto.frame;
     r.size.width = 40;
     r.size.height = r.size.width;
     r.origin.x = self.lbTitle.mj_x;
-    r.origin.y = self.ivImg.mj_y + self.ivImg.mj_h + 10;
+    r.origin.y = self.cycleScrollView.mj_y + self.cycleScrollView.mj_h + 10;
     self.ivPhoto.frame = r;
     
     size = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, 14)];

@@ -7,8 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件
+#import "VCMap.h"
 
-@interface AppDelegate ()
+@interface AppDelegate (){
+    BMKMapManager* _mapManager;
+}
 
 @end
 
@@ -17,13 +21,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:@"MkjCKGKGpirNYNExGGftceI7BZeaDOHA"  generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
     
     self.window= [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    UIViewController *myView = [story instantiateViewControllerWithIdentifier:@"MainViewController"];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:myView];
+//    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//    UIViewController *myView = [story instantiateViewControllerWithIdentifier:@"MainViewController"];
+    
+    VCMap *vc = [[VCMap alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
     self.window.rootViewController = nav;
 
     return YES;

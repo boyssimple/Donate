@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UIButton  *btnSubmit;
 @property (nonatomic, strong) ViewHeaderDonate  *header;
-
+@property (nonatomic, strong) NSArray *dataSource;
 @end
 
 @implementation VCDonateProfile
@@ -25,6 +25,35 @@
     [self.view addSubview:self.table];
     [self.view addSubview:self.btnSubmit];
     self.title = @"捐赠者资料";
+    [self loadData];
+}
+
+
+- (void)loadData{
+    [self showHudInView:self.view hint:@"加载数据..."];
+    NSString *urlstring = [NSString stringWithFormat:@"/api.php/index/u_info"];
+    NSDictionary *parmas = @{@"apikey":APIKEY,@"user_id":@(378)};
+    __weak typeof(self) weakself = self;
+    
+    [[RequsetPostTool requestNewWorkWithBaseURL]POST:urlstring parameters:parmas progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"结果：%@",responseObject);
+        [self hideHud];
+        if([[responseObject objectForKey:@"code"]integerValue] == 200){
+            [weakself handleData:responseObject];
+        }else{
+            [self showHint:@"加载失败!"];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self showHint:@"加载失败!"];
+        [self hideHud];
+        NSLog(@"error：%@",error);
+    }];
+}
+
+- (void)handleData:(NSDictionary*)data{
+    [self.header updateData:data];
+    self.dataSource = [data objectForKey:@"list"];
+    [self.table reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -35,7 +64,7 @@
     if(section == 0){
         return 1;
     }
-    return 6;
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
@@ -57,14 +86,19 @@
             cell.type = 0;
         }
     }else{
-        
-        if(indexPath.row < 4){
-            cell.title = @"食物类";
+        NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
+        NSString *type = [data objectForKey:@"type_title"];
+        if([type isKindOfClass:[NSNull class]]){
+            type = @"";
+        }
+        NSInteger sum = [[data objectForKey:@"sum"]integerValue];
+        cell.title = type;
+        if (sum > 0) {
             cell.type = 1;
         }else{
-            cell.title = @"优惠卷票类";
             cell.type = 2;
         }
+        cell.lbText.text = [NSString stringWithFormat:@"累计捐赠%zi件",sum];
     }
     
     
@@ -103,7 +137,6 @@
 - (ViewHeaderDonate*)header{
     if(!_header){
         _header = [[ViewHeaderDonate alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, [ViewHeaderDonate calHeight])];
-        [_header updateData];
     }
     
     return _header;

@@ -16,7 +16,7 @@
 #import "JXAlertview.h"
 #import "CustomDatePicker.h"
 #import "AFHTTPSessionManager.h"
-#import "VCMyProfile.h"
+#import "VCGoodsDetail.h"
 #import "MapViewController.h"
 
 @interface VipDataViewController ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate,UITextFieldDelegate,CWStarRateViewDelegate,CustomAlertDelegete>
@@ -452,11 +452,16 @@
      */
     
     
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        
+//        
+//        VCMap *vc = [[VCMap alloc]init];
+//        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//        window.rootViewController = nav;
+//    });
     
-    VCMyProfile *vc = [[VCMyProfile alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    /*
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
@@ -468,7 +473,7 @@
         window.rootViewController = nav;
     });
      
-     */
+     
 }
 
 - (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{

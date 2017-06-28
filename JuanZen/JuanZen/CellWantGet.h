@@ -11,6 +11,6 @@
 @interface CellWantGet : UITableViewCell
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, assign) NSInteger type;  //0 表示普通文字一行   1 表示捐赠者联系方式
-- (void)updateData;
+- (void)updateData:(NSDictionary*)data;
 + (CGFloat)calHeight:(NSInteger)type;       
 @end

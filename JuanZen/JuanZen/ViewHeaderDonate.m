@@ -63,9 +63,15 @@
     return self;
 }
 
-- (void)updateData{
-    self.lbAddress.text = @"重庆市渝中区大坪长江二路156号";
-    self.lbName.text = @"茶宝儿";
+- (void)updateData:(NSDictionary*)data{
+    self.lbAddress.text = [[data objectForKey:@"info"] objectForKey:@"address"];
+    self.lbName.text = [[data objectForKey:@"info"] objectForKey:@"user_name"];
+    NSString *url = [[data objectForKey:@"info"] objectForKey:@"head_graphic"];
+    if(url && ![url isKindOfClass:[NSNull class]]){
+        [self.ivPhoto sd_setImageWithURL:[NSURL URLWithString:url]];
+    }
+    self.starRateView.scorePercent = [[[data objectForKey:@"info"] objectForKey:@"evaluate"]floatValue];
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews{

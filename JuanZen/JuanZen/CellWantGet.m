@@ -80,10 +80,10 @@
     self.lbTitle.text = _title;
 }
 
-- (void)updateData{
-    self.lbDonateText.text = @"茶宝儿";
-    self.lbContactText.text = @"15890298192";
-    self.lbAddressText.text = @"重庆市渝中区大坪长江二路159号";
+- (void)updateData:(NSDictionary*)data{
+    self.lbDonateText.text = [data objectForKey:@"user_name"];
+    self.lbContactText.text = [data objectForKey:@"user_phone"];
+    self.lbAddressText.text = [data objectForKey:@"address"];
 }
 
 - (void)setType:(NSInteger)type{

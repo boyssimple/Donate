@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewHeaderDonate : UIView
-- (void)updateData;
+- (void)updateData:(NSDictionary*)data;
 + (CGFloat)calHeight;
 
 @end

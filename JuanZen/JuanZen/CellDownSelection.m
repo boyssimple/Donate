@@ -126,7 +126,6 @@
         _ivPhoto.layer.borderColor = RGB3(221).CGColor;
         _ivPhoto.layer.borderWidth = 4.f;
         _ivPhoto.clipsToBounds = YES;
-        [_ivPhoto sd_setImageWithURL:[NSURL URLWithString:@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1074344932,2251510853&fm=26&gp=0.jpg"]];
         [self.contentView addSubview:_ivPhoto];
     }
     return self;
@@ -146,6 +145,10 @@
         self.lbText.text = text;
     }else if(type == 5){
         self.textView.text = text;
+    }else if(type == 6){
+        self.btnCheck.selected = [text boolValue];
+    }else if(type == 4){
+        self.starRateView.scorePercent = [text floatValue];
     }
 }
 

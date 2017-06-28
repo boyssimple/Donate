@@ -26,10 +26,14 @@
 @property (nonatomic, strong) NSString *myAddress;//我的地址
 @property (nonatomic, strong) NSString *detailAddress;//详细地址
 @property (nonatomic, strong) UIImage *img;
+@property (nonatomic, assign) BOOL modified;
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, strong) NSString *pCode;
 @property (nonatomic, strong) NSString *cCode;
 @property (nonatomic, strong) NSString *aCode;
+@property (nonatomic, strong) NSString *province;
+@property (nonatomic, strong) NSString *city;
+@property (nonatomic, strong) NSString *area;
 @property (nonatomic, strong) RXJDAddressPickerView *threePicker;
 @end
 
@@ -41,7 +45,7 @@
     [self.view addSubview:self.table];
     [self.view addSubview:self.btnSubmit];
     self.title = @"我的资料";
-    
+    [self loadData];
     
     self.threePicker = [[RXJDAddressPickerView alloc]init];
     [self.view addSubview:self.threePicker];
@@ -50,6 +54,9 @@
         weakSelf.pCode = provinceCode;
         weakSelf.cCode = cityCode;
         weakSelf.aCode = areaCode;
+        weakSelf.province = province;
+        weakSelf.city = city;
+        weakSelf.area = area;
         weakSelf.myAddress = [NSString stringWithFormat:@"%@%@%@",province,city,area];
         CellDownSelection*cell = (CellDownSelection*)[weakSelf.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
         [cell updateData:weakSelf.myAddress withType:9];
@@ -72,6 +79,92 @@
         self.contactTypeId = [[data objectForKey:@"type_id"]integerValue];
     }];
     [action show];
+}
+
+- (void)loadData{
+    [self showHudInView:self.view hint:@"加载数据..."];
+    NSString *urlstring = [NSString stringWithFormat:@"/api.php/index/u_info"];
+    NSDictionary *parmas = @{@"apikey":APIKEY,@"user_id":@(378)};
+    __weak typeof(self) weakself = self;
+    
+    [[RequsetPostTool requestNewWorkWithBaseURL]POST:urlstring parameters:parmas progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"结果：%@",responseObject);
+        [self hideHud];
+        if([[responseObject objectForKey:@"code"]integerValue] == 200){
+            [weakself handleData:[responseObject objectForKey:@"info"]];
+        }else{
+            [self showHint:@"加载失败!"];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self showHint:@"加载失败!"];
+        [self hideHud];
+        NSLog(@"error：%@",error);
+    }];
+}
+
+- (void)handleData:(NSDictionary*)data{
+    NSString *url = [data objectForKey:@"head_graphic"];
+    if(url && ![url isKindOfClass:[NSNull class]]){
+        UIImageView *iv = [[UIImageView alloc]init];
+        [iv sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            self.img = image;
+            [self.table reloadData];
+        }];
+    }
+    self.companyName = [data objectForKey:@"user_name"];
+    if (!self.companyName || [self.companyName isKindOfClass:[NSNull class]]) {
+        self.companyName = @"";
+    }
+    self.phone = [data objectForKey:@"user_phone"];
+    if (!self.phone || [self.phone isKindOfClass:[NSNull class]]) {
+        self.phone = @"";
+    }
+    self.contactTypeId = [[data objectForKey:@"contact_type"]integerValue];
+    if (self.contactTypeId == 1) {
+        self.contactType = @"微信";
+    }else if (self.contactTypeId == 2) {
+        self.contactType = @"QQ";
+    }else if (self.contactTypeId == 3) {
+        self.contactType = @"手机";
+    }
+    self.contactText = [data objectForKey:@"contact_number"];
+    if (!self.contactText || [self.contactText isKindOfClass:[NSNull class]]) {
+        self.contactText = @"";
+    }
+    self.province = [data objectForKey:@"u_province_name"];
+    if (!self.province || [self.province isKindOfClass:[NSNull class]]) {
+        self.province = @"";
+    }
+    self.city = [data objectForKey:@"u_city_name"];
+    if (!self.city || [self.city isKindOfClass:[NSNull class]]) {
+        self.city = @"";
+    }
+    self.area = [data objectForKey:@"u_area_name"];
+    if (!self.area || [self.area isKindOfClass:[NSNull class]]) {
+        self.area = @"";
+    }
+    self.pCode = [data objectForKey:@"u_province"];
+    if (!self.pCode || [self.pCode isKindOfClass:[NSNull class]]) {
+        self.pCode = @"";
+    }
+        
+    self.cCode = [data objectForKey:@"u_city"];
+    if (!self.cCode || [self.cCode isKindOfClass:[NSNull class]]) {
+        self.cCode = @"";
+    }
+    self.aCode = [data objectForKey:@"u_area"];
+    if (!self.aCode || [self.aCode isKindOfClass:[NSNull class]]) {
+        self.aCode = @"";
+    }
+    
+    self.myAddress = [NSString stringWithFormat:@"%@%@%@",self.province, self.city,self.area];
+    self.detailAddress = [data objectForKey:@"address"];
+    if (!self.detailAddress || [self.detailAddress isKindOfClass:[NSNull class]]) {
+        self.detailAddress = @"";
+    }
+    self.selected =  [[data objectForKey:@"is_reco"]boolValue];
+    
+    [self.table reloadData];
 }
 
 #pragma mark -- 地址选择器
@@ -131,6 +224,9 @@
         cell.type = 7;
         if (self.img) {
             cell.ivPhoto.image = self.img;
+            cell.ivPhoto.hidden = NO;
+        }else{
+            cell.ivPhoto.hidden = YES;
         }
     }else if (indexPath.row == 1) {
         cell.title = @"公司名称";
@@ -149,6 +245,11 @@
         cell.tfSecondText.tag = 102;
         [cell updateData:self.contactType withType:0];
         cell.tfSecondText.text = self.contactText;
+        if (self.contactTypeId != 0) {
+            cell.tfSecondText.userInteractionEnabled = YES;
+        }else{
+            cell.tfSecondText.userInteractionEnabled = NO;
+        }
     }else if (indexPath.row == 4) {
         cell.title = @"我的地址";
         cell.type = 9;
@@ -162,6 +263,7 @@
     }else if (indexPath.row == 6) {
         cell.type = 6;
         cell.title = @"推荐这款APP给身边的人一起来帮助需要帮助的人！";
+        [cell updateData:[NSString stringWithFormat:@"%d",self.selected] withType:6];
     }
     
     cell.index = indexPath;
@@ -200,6 +302,7 @@
 - (void)selectImg{
     [BDImagePicker showImagePickerFromViewController:self allowsEditing:YES finishAction:^(UIImage *image) {
         if (image) {
+            self.modified = TRUE;
             self.img = image;
             [self.table reloadData];
         }
@@ -226,8 +329,31 @@
     [self.view endEditing:YES];
     [self showHudInView:self.view hint:@"数据处理..."];
     
+    if (self.companyName.length == 0) {
+        Alert(@"请填写公司名称");
+        return;
+    }
     
-    NSData *data = UIImagePNGRepresentation(self.img);
+    if (self.phone.length == 0) {
+        Alert(@"请填写电话号码");
+        return;
+    }
+    
+    if (self.contactText.length == 0) {
+        Alert(@"请填写联系方式");
+        return;
+    }
+    
+    if (self.aCode == nil ||  [NSString stringWithFormat:@"%@",self.aCode].length == 0) {
+        Alert(@"请填写我的地址");
+        return;
+    }
+    
+    if (self.detailAddress.length == 0) {
+        Alert(@"请填写详细地址");
+        return;
+    }
+    
     NSDictionary *dict = @{@"apikey":APIKEY,
                            @"user_id":@"378",
                            @"user_name":self.companyName,
@@ -239,10 +365,13 @@
                            @"u_area":self.aCode,
                            @"address":self.detailAddress,
                            @"is_reco":@(self.selected)};
-    NSString     *urlString = [NSString stringWithFormat:@"%@",@"/api.php/index/u_info"];
+    NSString     *urlString = [NSString stringWithFormat:@"%@",@"/api.php/index/user_save"];
     
     [[RequsetPostTool requestNewWorkWithBaseURL] POST:urlString parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:data name:@"graphic" fileName:@"headImage.png" mimeType:@"image/png"];
+        if(self.modified && self.img){
+            NSData *data = UIImagePNGRepresentation(self.img);
+            [formData appendPartWithFileData:data name:@"head_graphic" fileName:@"headImage.png" mimeType:@"image/png"];
+        }
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] isEqualToString:@"200"]) {

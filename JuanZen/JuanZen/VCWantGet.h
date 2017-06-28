@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VCWantGet : UIViewController
-
+@property (nonatomic, strong) NSDictionary *data;
 @end

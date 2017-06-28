@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewHeaderGoods : UIView
-- (void)updateData;
+- (void)updateData:(NSDictionary*)data;
 + (CGFloat)calHeight;
 @end

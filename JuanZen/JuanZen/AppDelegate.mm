@@ -36,9 +36,9 @@
     UIViewController *vc;
     NSString *savedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:SIGNENTER];
     if (!savedVersion) {
-        vc = [[VCMap alloc]init];
-    }else{
         vc = [[VipDataViewController alloc]init];
+    }else{
+        vc = [[VCMap alloc]init];
     }
     UIBaseNav *nav = [[UIBaseNav alloc]initWithRootViewController:vc];
     self.window.rootViewController = nav;

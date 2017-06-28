@@ -9,9 +9,10 @@
 #import "AppDelegate.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件
 #import "VCMap.h"
-#import "VipDataViewController.h"
+#import "MainViewController.h"
 #import "UIBaseNav.h"
 #import "MapViewController.h"
+
 
 @interface AppDelegate (){
     BMKMapManager* _mapManager;
@@ -36,7 +37,7 @@
     UIViewController *vc;
     NSString *savedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:SIGNENTER];
     if (!savedVersion) {
-        vc = [[VipDataViewController alloc]init];
+        vc = [[MainViewController alloc]init];
     }else{
         vc = [[VCMap alloc]init];
     }

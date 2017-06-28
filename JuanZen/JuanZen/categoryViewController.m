@@ -55,7 +55,7 @@ static NSString*collectionIdentifier = @"categoryCollectionViewCell";
         flowlayout.minimumInteritemSpacing = 1;
         //上下间距
         flowlayout.minimumLineSpacing = 1;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0 , 64, self.view.frame.size.width, self.view.frame.size.height - 64) collectionViewLayout:flowlayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0 , 0, ScreenWidth, ScreenHeight) collectionViewLayout:flowlayout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.showsVerticalScrollIndicator = NO;

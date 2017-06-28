@@ -391,7 +391,7 @@
 
 - (UITableView*)table{
     if (!_table) {
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 40) style:UITableViewStyleGrouped];
+        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 40 - 64) style:UITableViewStyleGrouped];
         _table.dataSource = self;
         _table.delegate = self;
         _table.backgroundColor = RGB3(241);
@@ -404,7 +404,7 @@
 
 - (UIButton*)btnSubmit{
     if(!_btnSubmit){
-        _btnSubmit = [[UIButton alloc]initWithFrame:CGRectMake(0, ScreenHeight - 40, ScreenWidth, 40)];
+        _btnSubmit = [[UIButton alloc]initWithFrame:CGRectMake(0, ScreenHeight - 40 - 64, ScreenWidth, 40)];
         _btnSubmit.backgroundColor = RGB(254, 0, 0);
         [_btnSubmit setTitle:@"提交" forState:UIControlStateNormal];
         [_btnSubmit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

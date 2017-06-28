@@ -17,7 +17,7 @@
 #import "CustomDatePicker.h"
 #import "AFHTTPSessionManager.h"
 #import "VCGoodsDetail.h"
-#import "MapViewController.h"
+#import "VCMap.h"
 
 #import "UIBaseNav.h"
 
@@ -440,7 +440,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@"ABC" forKey:SIGNENTER];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            MapViewController *vc = [[MapViewController alloc]init];
+            VCMap *vc = [[VCMap alloc]init];
             UIWindow *window = [UIApplication sharedApplication].keyWindow;
             UIBaseNav *nav = [[UIBaseNav alloc]initWithRootViewController:vc];
             window.rootViewController = nav;
@@ -556,7 +556,7 @@
 
 - (UITableView*)table{
     if (!_table) {
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 40) style:UITableViewStyleGrouped];
+        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 40 - 64) style:UITableViewStyleGrouped];
         _table.dataSource = self;
         _table.delegate = self;
         _table.backgroundColor = RGB3(241);
@@ -569,7 +569,7 @@
 
 - (UIButton*)btnSubmit{
     if(!_btnSubmit){
-        _btnSubmit = [[UIButton alloc]initWithFrame:CGRectMake(0, ScreenHeight - 40, ScreenWidth, 40)];
+        _btnSubmit = [[UIButton alloc]initWithFrame:CGRectMake(0, ScreenHeight - 40 - 64, ScreenWidth, 40)];
         _btnSubmit.backgroundColor = RGB(254, 0, 0);
         [_btnSubmit setTitle:@"提交" forState:UIControlStateNormal];
         [_btnSubmit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -19,6 +19,8 @@
 #import "VCGoodsDetail.h"
 #import "MapViewController.h"
 
+#import "UIBaseNav.h"
+
 @interface VipDataViewController ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate,UITextFieldDelegate,CWStarRateViewDelegate,CustomAlertDelegete>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UIButton  *btnSubmit;
@@ -336,7 +338,7 @@
 }
 
 - (void)submitClick{
-    /*
+    
     [self.view endEditing:YES];
     
     NSMutableDictionary *parmas = [NSMutableDictionary dictionary];
@@ -435,11 +437,13 @@
             
             [self showHint:@"提交成功!"];
             
-            
+            [[NSUserDefaults standardUserDefaults] setObject:@"ABC" forKey:SIGNENTER];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             MapViewController *vc = [[MapViewController alloc]init];
             UIWindow *window = [UIApplication sharedApplication].keyWindow;
-            window.rootViewController = vc;
+            UIBaseNav *nav = [[UIBaseNav alloc]initWithRootViewController:vc];
+            window.rootViewController = nav;
         }else {
             NSLog(@"%@",responseObject[@"msg"]);
             [self showHint:@"提交失败!"];
@@ -449,30 +453,6 @@
         [self showHint:@"提交失败!"];
         [self hideHud];
     }];
-     */
-    
-    
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        
-//        
-//        VCMap *vc = [[VCMap alloc]init];
-//        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//        window.rootViewController = nav;
-//    });
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        
-        
-        UIViewController *vc = [[UIViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        window.rootViewController = nav;
-    });
-     
      
 }
 

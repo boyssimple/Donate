@@ -74,6 +74,8 @@
 		294AE2511F0354FA007F56D8 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE2491F0354FA007F56D8 /* SDCycleScrollView.m */; };
 		294AE2521F0354FA007F56D8 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE24B1F0354FA007F56D8 /* UIView+SDExtension.m */; };
 		294AE2581F0389F3007F56D8 /* VCMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE2571F0389F3007F56D8 /* VCMap.m */; };
+		294AE25B1F03936D007F56D8 /* UIBaseNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE25A1F03936D007F56D8 /* UIBaseNav.m */; };
+		294AE25E1F0399BB007F56D8 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE25D1F0399BB007F56D8 /* CollectionViewCell.m */; };
 		91EEC4D21F00E1F6009DFED9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D11F00E1F6009DFED9 /* main.m */; };
 		91EEC4D51F00E1F7009DFED9 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D41F00E1F7009DFED9 /* AppDelegate.mm */; };
 		91EEC4D81F00E1F7009DFED9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D71F00E1F7009DFED9 /* ViewController.m */; };
@@ -300,6 +302,10 @@
 		294AE24B1F0354FA007F56D8 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		294AE2561F0389F3007F56D8 /* VCMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMap.h; sourceTree = "<group>"; };
 		294AE2571F0389F3007F56D8 /* VCMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCMap.m; sourceTree = "<group>"; };
+		294AE2591F03936D007F56D8 /* UIBaseNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBaseNav.h; sourceTree = "<group>"; };
+		294AE25A1F03936D007F56D8 /* UIBaseNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBaseNav.m; sourceTree = "<group>"; };
+		294AE25C1F0399BB007F56D8 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
+		294AE25D1F0399BB007F56D8 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		91EEC4CD1F00E1F6009DFED9 /* JuanZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JuanZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91EEC4D11F00E1F6009DFED9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		91EEC4D31F00E1F6009DFED9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -599,6 +605,8 @@
 				294AE20B1F024D15007F56D8 /* MapCollectionViewCell.xib */,
 				294AE2561F0389F3007F56D8 /* VCMap.h */,
 				294AE2571F0389F3007F56D8 /* VCMap.m */,
+				294AE25C1F0399BB007F56D8 /* CollectionViewCell.h */,
+				294AE25D1F0399BB007F56D8 /* CollectionViewCell.m */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -798,6 +806,8 @@
 				91EEC5081F00E2A4009DFED9 /* MainTableViewCell.xib */,
 				91EEC5091F00E2A4009DFED9 /* MainViewController.h */,
 				91EEC50A1F00E2A4009DFED9 /* MainViewController.m */,
+				294AE2591F03936D007F56D8 /* UIBaseNav.h */,
+				294AE25A1F03936D007F56D8 /* UIBaseNav.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1296,6 +1306,7 @@
 				91EEC5F31F00E30F009DFED9 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				294AE1FE1F024D0A007F56D8 /* View+MASAdditions.m in Sources */,
 				91EEC5C51F00E30F009DFED9 /* AFNetworkReachabilityManager.m in Sources */,
+				294AE25E1F0399BB007F56D8 /* CollectionViewCell.m in Sources */,
 				91EEC5F41F00E30F009DFED9 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				91EEC5FC1F00E30F009DFED9 /* baseViewController.m in Sources */,
 				91EEC6091F00E30F009DFED9 /* ProgressHUD.m in Sources */,
@@ -1378,6 +1389,7 @@
 				294AE24C1F0354FA007F56D8 /* TAAbstractDotView.m in Sources */,
 				294AE1F71F024D0A007F56D8 /* MASConstraint.m in Sources */,
 				91EEC5EF1F00E30F009DFED9 /* UIImageView+WebCache.m in Sources */,
+				294AE25B1F03936D007F56D8 /* UIBaseNav.m in Sources */,
 				91EEC5C61F00E30F009DFED9 /* AFSecurityPolicy.m in Sources */,
 				294AE1FA1F024D0A007F56D8 /* MASViewAttribute.m in Sources */,
 				294AE1B71F01146B007F56D8 /* VCWantWish.m in Sources */,

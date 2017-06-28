@@ -88,6 +88,7 @@ typedef NS_ENUM(NSUInteger, YJPopoverArrowDirection) {
 #define Alert(msg) [[[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show]
 
 #define APPKEY @"fjm1hLsIQGtszqFS0ePZKCCQDncndCmp"
+#define SIGNENTER @"SIGNENTER"
 
 
 

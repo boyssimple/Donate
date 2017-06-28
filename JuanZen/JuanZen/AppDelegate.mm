@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件
 #import "VCMap.h"
+#import "VipDataViewController.h"
+#import "UIBaseNav.h"
+#import "MapViewController.h"
 
 @interface AppDelegate (){
     BMKMapManager* _mapManager;
@@ -30,12 +33,14 @@
     
     self.window= [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
-    
-//    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//    UIViewController *myView = [story instantiateViewControllerWithIdentifier:@"MainViewController"];
-    
-    VCMap *vc = [[VCMap alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    UIViewController *vc;
+    NSString *savedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:SIGNENTER];
+    if (!savedVersion) {
+        vc = [[VCMap alloc]init];
+    }else{
+        vc = [[VipDataViewController alloc]init];
+    }
+    UIBaseNav *nav = [[UIBaseNav alloc]initWithRootViewController:vc];
     self.window.rootViewController = nav;
 
     return YES;

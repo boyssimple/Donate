@@ -76,6 +76,7 @@
 		294AE2581F0389F3007F56D8 /* VCMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE2571F0389F3007F56D8 /* VCMap.m */; };
 		294AE25B1F03936D007F56D8 /* UIBaseNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE25A1F03936D007F56D8 /* UIBaseNav.m */; };
 		294AE25E1F0399BB007F56D8 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE25D1F0399BB007F56D8 /* CollectionViewCell.m */; };
+		294AE2641F04E7B0007F56D8 /* ImageCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AE2631F04E7B0007F56D8 /* ImageCustom.m */; };
 		91EEC4D21F00E1F6009DFED9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D11F00E1F6009DFED9 /* main.m */; };
 		91EEC4D51F00E1F7009DFED9 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D41F00E1F7009DFED9 /* AppDelegate.mm */; };
 		91EEC4D81F00E1F7009DFED9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EEC4D71F00E1F7009DFED9 /* ViewController.m */; };
@@ -306,6 +307,8 @@
 		294AE25A1F03936D007F56D8 /* UIBaseNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBaseNav.m; sourceTree = "<group>"; };
 		294AE25C1F0399BB007F56D8 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		294AE25D1F0399BB007F56D8 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		294AE2621F04E7B0007F56D8 /* ImageCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCustom.h; sourceTree = "<group>"; };
+		294AE2631F04E7B0007F56D8 /* ImageCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCustom.m; sourceTree = "<group>"; };
 		91EEC4CD1F00E1F6009DFED9 /* JuanZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JuanZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91EEC4D11F00E1F6009DFED9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		91EEC4D31F00E1F6009DFED9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -549,6 +552,8 @@
 				1CDA7D611F016E06000D8641 /* CellWantGet.m */,
 				294AE1B81F020708007F56D8 /* CustomAlertView.h */,
 				294AE1B91F020708007F56D8 /* CustomAlertView.m */,
+				294AE2621F04E7B0007F56D8 /* ImageCustom.h */,
+				294AE2631F04E7B0007F56D8 /* ImageCustom.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1400,6 +1405,7 @@
 				91EEC5E91F00E30F009DFED9 /* SDWebImagePrefetcher.m in Sources */,
 				91EEC5CD1F00E30F009DFED9 /* MJRefreshAutoFooter.m in Sources */,
 				91EEC5E21F00E30F009DFED9 /* NSData+ImageContentType.m in Sources */,
+				294AE2641F04E7B0007F56D8 /* ImageCustom.m in Sources */,
 				294AE2521F0354FA007F56D8 /* UIView+SDExtension.m in Sources */,
 				1CDA7D4A1F01543F000D8641 /* VCMyProfile.m in Sources */,
 				91EEC5E01F00E30F009DFED9 /* UIView+MJExtension.m in Sources */,

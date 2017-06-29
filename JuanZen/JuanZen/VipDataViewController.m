@@ -42,8 +42,7 @@
 @property (nonatomic, strong) NSString *resultTime;//结果时间
 @property (nonatomic, strong) NSString *myAddress;//我的地址
 @property (nonatomic, strong) NSString *detailAddress;//详细地址
-@property (nonatomic, strong) UIImage *img;//上传图片
-
+@property (nonatomic, strong) NSMutableArray *images;
 
 @property (nonatomic, assign) CGFloat oldLevel;
 @property (nonatomic, assign) CGFloat useLevel;
@@ -67,6 +66,7 @@
     [self.view addSubview:self.btnSubmit];
     self.title = @"会员资料";
     self.contactType = @"请选择联系方式";
+    self.images = [NSMutableArray array];
     
     self.threePicker = [[RXJDAddressPickerView alloc]init];
     [self.view addSubview:self.threePicker];
@@ -185,7 +185,7 @@
 - (void)selectImg{
     [BDImagePicker showImagePickerFromViewController:self allowsEditing:YES finishAction:^(UIImage *image) {
         if (image) {
-            self.img = image;
+            [self.images addObject:image];
             [self.table reloadData];
         }
     }];
@@ -300,12 +300,8 @@
             cell.tfText.tag = 106;
         }else if (indexPath.row == 9) {
             cell.title = @"上传图片";
-            if (self.img) {
-                cell.type = 8;
-                cell.ivImage.image = self.img;
-            }else{
-                cell.type = 3;
-            }
+            cell.type = 3;
+            [cell updataImages:self.images];//多图
         }
         [cell hiddenLine:NO];
     }else if (indexPath.section == 1){
@@ -386,7 +382,7 @@
         return;
     }
     
-    if (!self.img) {
+    if (self.images.count == 0) {
         Alert(@"请选择上传图片");
         return;
     }
@@ -408,7 +404,6 @@
     [self showHudInView:self.view hint:@"数据处理..."];
     
     
-    NSData *data = UIImagePNGRepresentation(self.img);
     NSDictionary *dict = @{@"apikey":APIKEY,
                            @"type_id":@(self.donateTypeId),
                            @"c_type_id":@(self.cateTypeId),
@@ -428,7 +423,11 @@
     NSString     *urlString = [NSString stringWithFormat:@"%@",@"/api.php/index/user_add"];
     
     [[RequsetPostTool requestNewWorkWithBaseURL] POST:urlString parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:data name:@"graphic" fileName:@"headImage.png" mimeType:@"image/png"];
+        for (NSInteger i= 0 ; i < self.images.count; i++) {
+            UIImage *img = [self.images objectAtIndex:i];
+            NSData *data = UIImagePNGRepresentation(img);
+            [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"graphic[%zi]",i] fileName:@"headImage.png" mimeType:@"image/png"];
+        }
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
@@ -481,14 +480,17 @@
             [self showDate:301];
         }
         
-    }else if(type == 2){
-        if (index.row == 9) {
-            self.img = nil;
-            [self.table reloadData];
-        }
     }
     
 }
+
+- (void)deleteImg:(NSInteger)curIndex with:(NSIndexPath *)index{
+    if (index.row == 9) {
+        [self.images removeObjectAtIndex:curIndex];
+        [self.table reloadData];
+    }
+}
+    
 
 - (void)showDate:(NSInteger)tag{
     JXAlertview *alert = [[JXAlertview alloc] initWithFrame:CGRectMake(10, (ScreenHeight-260)/2, ScreenWidth-20, 260)];

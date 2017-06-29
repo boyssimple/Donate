@@ -8,19 +8,22 @@
 
 #import "CellDownSelection.h"
 
-@interface CellDownSelection()
+#import "ImageCustom.h"
+
+@interface CellDownSelection()<ImageCustomDelegate>
 @property (nonatomic, strong) UILabel *lbTitle;
 @property (nonatomic, strong) UILabel *lbText;
 @property (nonatomic, strong) UIView *vTextBg;
 @property (nonatomic, strong) UIImageView *ivDown;
 @property (nonatomic, strong) UIView *vLine;
 @property (nonatomic, strong) UIButton *btnAdd;
-@property (nonatomic, strong) UIButton *btnDelete;
 
 
 @property (nonatomic, strong) UIButton *btnCheck;
 @property (nonatomic, strong) UILabel *lbCheck;
 
+@property (nonatomic, strong) UIView *vPhotos;
+@property (nonatomic, assign) NSInteger photoCount;
 @end
 @implementation CellDownSelection
 
@@ -75,13 +78,8 @@
         [self.contentView addSubview:_vLine];
         
         
-        _ivImage = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivImage.layer.cornerRadius = 3;
-        _ivImage.layer.borderWidth = 0.5;
-        _ivImage.layer.borderColor = RGB3(230).CGColor;
-        _ivImage.clipsToBounds = YES;
-        _ivImage.layer.masksToBounds = YES;
-        [self.contentView addSubview:_ivImage];
+        _vPhotos = [[UIView alloc]initWithFrame:CGRectZero];
+        [self.contentView addSubview:_vPhotos];
         
         _btnAdd = [[UIButton alloc]initWithFrame:CGRectZero];
         [_btnAdd setImage:[UIImage imageNamed:@"UploadImg"] forState:UIControlStateNormal];
@@ -91,12 +89,6 @@
         _btnAdd.hidden = YES;
         [_btnAdd addTarget:self action:@selector(uploadClick) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_btnAdd];
-        
-        
-        _btnDelete = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_btnDelete setImage:[UIImage imageNamed:@"ImgDelete"] forState:UIControlStateNormal];
-        [_btnDelete addTarget:self action:@selector(deleteClick) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_btnDelete];
         
         _starRateView = [[CWStarRateView alloc] initWithFrame:CGRectMake(ScreenWidth - 130, 0, 120, 20) numberOfStars:5];
         _starRateView.hidden = YES;
@@ -152,6 +144,42 @@
     }
 }
 
+- (void)updataImages:(NSArray *)images{
+//    ImageCustom.h
+    
+    NSArray *subs = [self.vPhotos subviews];
+    for (UIView *v in subs) {
+        [v removeFromSuperview];
+    }
+    self.photoCount = images.count;
+    NSInteger i = 0;
+    for (UIImage *img in images) {
+        ImageCustom *ict = [[ImageCustom alloc]initWithFrame:CGRectMake(i * 10 + 47 * i, 0, 47, 47)];
+        ict.delegate = self;
+        ict.ivImg.image = img;
+        ict.index = i;
+        [self.vPhotos addSubview:ict];
+        i++;
+    }
+    self.btnAdd.hidden = NO;
+    
+    if(self.photoCount == 0){
+        self.vPhotos.hidden = YES;
+    }else if(self.photoCount >= 3){
+        self.btnAdd.hidden = YES;
+    }else{
+        self.vPhotos.hidden = NO;
+    }
+}
+
+- (void)imageDeleteClick:(NSInteger)index{
+    
+    if ([self.delegate respondsToSelector:@selector(deleteImg:with:)]) {
+        [self.delegate deleteImg:index with:self.index];
+    }
+    
+}
+
 - (void)selectClick{
     if ([self.delegate respondsToSelector:@selector(selectCell: with:)]) {
         [self.delegate selectCell:0 with:self.index];
@@ -193,13 +221,11 @@
     self.lbText.hidden = YES;
     self.tfText.hidden = YES;
     self.vTextBg.hidden = YES;
-    self.ivImage.hidden = YES;
     self.btnAdd.hidden = YES;
-    self.btnDelete.hidden = YES;
     self.starRateView.hidden = YES;
     self.textView.hidden = YES;
     
-    
+    self.vPhotos.hidden = YES;
     self.btnCheck.hidden = YES;
     self.lbCheck.hidden = YES;
     self.backgroundColor = [UIColor whiteColor];
@@ -216,6 +242,7 @@
         self.vTextBg.hidden = NO;
         self.ivDown.hidden = NO;
     }else if(_type == 3){
+        self.vPhotos.hidden = NO;
         self.btnAdd.hidden = NO;
     }else if(_type == 4){
         self.starRateView.hidden = NO;
@@ -229,8 +256,7 @@
     }else if(_type == 7){
         self.ivPhoto.hidden = NO;
     }else if(_type == 8){
-        self.ivImage.hidden = NO;
-        self.btnDelete.hidden = NO;
+        self.vPhotos.hidden = NO;
     }else if(_type == 9){
         self.lbText.hidden = NO;
     }
@@ -288,27 +314,24 @@
     r.origin.y = self.mj_h - r.size.height;
     self.vLine.frame = r;
     
+    r = self.vPhotos.frame;
+    r.size.width = (self.photoCount-1) * 10+self.photoCount*47;
+    r.size.height = 47;
+    r.origin.x = self.tfText.mj_x;
+    r.origin.y = (self.mj_h - r.size.height)/2.0 - 3.5;
+    self.vPhotos.frame = r;
+    
     r = self.btnAdd.frame;
     r.size.width = 40;
     r.size.height = r.size.width;
-    r.origin.x = self.tfText.mj_x;
+    if (self.photoCount > 0) {
+        
+        r.origin.x = self.vPhotos.mj_x + self.vPhotos.mj_w + 10;
+    }else{
+        r.origin.x = self.tfText.mj_x;
+    }
     r.origin.y = (self.mj_h - r.size.height)/2.0;
     self.btnAdd.frame = r;
-    
-    r = self.ivImage.frame;
-    r.size.width = self.btnAdd.mj_w;
-    r.size.height = r.size.width;
-    r.origin.x = self.btnAdd.mj_x;
-    r.origin.y = self.btnAdd.mj_y;
-    self.ivImage.frame = r;
-    
-    r = self.btnDelete.frame;
-    r.size.width = 15;
-    r.size.height = r.size.width;
-    r.origin.x = self.ivImage.mj_x + self.ivImage.mj_w - 7;
-    r.origin.y = self.ivImage.mj_y - 7;
-    self.btnDelete.frame = r;
-    
     
     if (self.type == 0) {
         self.tfText.mj_w = ScreenWidth - self.tfText.mj_x - 20;

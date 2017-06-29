@@ -31,7 +31,7 @@
 
 @property (nonatomic, strong) NSString *startTime;//拿取时间
 @property (nonatomic, strong) NSString *endTime;//结果时间
-@property (nonatomic, strong) UIImage *img;//上传图片
+@property (nonatomic, strong) NSMutableArray *images;
 
 
 @property (nonatomic, assign) CGFloat oldLevel;
@@ -48,6 +48,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.table];
     [self.view addSubview:self.btnSubmit];
+    self.images = [NSMutableArray array];
     self.title = @"我要捐赠";
     self.Dpicker = [[CustomDatePicker alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width-20, 200)];
 }
@@ -135,7 +136,7 @@
 - (void)selectImg{
     [BDImagePicker showImagePickerFromViewController:self allowsEditing:YES finishAction:^(UIImage *image) {
         if (image) {
-            self.img = image;
+            [self.images addObject:image];
             [self.table reloadData];
         }
     }];
@@ -200,12 +201,8 @@
             [cell updateData:self.endTime withType:0];
         }else if (indexPath.row == 5) {
             cell.title = @"上传图片";
-            if (self.img) {
-                cell.type = 8;
-                cell.ivImage.image = self.img;
-            }else{
-                cell.type = 3;
-            }
+            cell.type = 3;
+            [cell updataImages:self.images];//多图
         }
         cell.index = indexPath;
         [cell hiddenLine:NO];
@@ -277,7 +274,7 @@
         return;
     }
     
-    if (!self.img) {
+    if (self.images.count == 0) {
         Alert(@"请选择上传图片");
         return;
     }
@@ -299,7 +296,6 @@
     [self showHudInView:self.view hint:@"数据处理..."];
     
     
-    NSData *data = UIImagePNGRepresentation(self.img);
     NSDictionary *dict = @{@"apikey":APIKEY,
                            @"type_id":@(self.donateTypeId),
                            @"c_type_id":@(self.cateTypeId),
@@ -312,7 +308,11 @@
     NSString     *urlString = [NSString stringWithFormat:@"%@",@"/api.php/index/add_goods"];
     
     [[RequsetPostTool requestNewWorkWithBaseURL] POST:urlString parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:data name:@"graphic" fileName:@"headImage.png" mimeType:@"image/png"];
+        for (NSInteger i= 0 ; i < self.images.count; i++) {
+            UIImage *img = [self.images objectAtIndex:i];
+            NSData *data = UIImagePNGRepresentation(img);
+            [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"graphic[%zi]",i] fileName:@"headImage.png" mimeType:@"image/png"];
+        }
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
@@ -345,11 +345,13 @@
             
             [self selectImg];
         }
-    }else if(type == 2){
-        if (index.row == 5) {
-            self.img = nil;
-            [self.table reloadData];
-        }
+    }
+}
+
+- (void)deleteImg:(NSInteger)curIndex with:(NSIndexPath *)index{
+    if (index.row == 5) {
+        [self.images removeObjectAtIndex:curIndex];
+        [self.table reloadData];
     }
 }
 

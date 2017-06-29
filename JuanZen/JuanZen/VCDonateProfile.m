@@ -32,7 +32,7 @@
 - (void)loadData{
     [self showHudInView:self.view hint:@"加载数据..."];
     NSString *urlstring = [NSString stringWithFormat:@"/api.php/index/u_info"];
-    NSDictionary *parmas = @{@"apikey":APIKEY,@"user_id":@(378)};
+    NSDictionary *parmas = @{@"apikey":APIKEY,@"user_id":self.userId};
     __weak typeof(self) weakself = self;
     
     [[RequsetPostTool requestNewWorkWithBaseURL]POST:urlstring parameters:parmas progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *getAddress;//拿取地址
 @property (nonatomic, strong) NSString *startTime;//拿取时间
 @property (nonatomic, strong) NSString *endTime;//结束时间
+@property (nonatomic, strong) NSString *userId;//userId
 
 
 @property (nonatomic, assign) CGFloat oldLevel;
@@ -65,7 +66,7 @@
 
 - (void)handleData:(NSDictionary*)data{
     [self.header updateData:data];
-    
+    self.userId = [[data objectForKey:@"info"] objectForKey:@"user_id"];
     self.oldLevel = [[[data objectForKey:@"info"] objectForKey:@"old_new"]floatValue];
     self.useLevel = [[[data objectForKey:@"info"] objectForKey:@"fre_use"]floatValue];
     self.clearLevel = [[[data objectForKey:@"info"] objectForKey:@"cle_lin"]floatValue];
@@ -199,6 +200,7 @@
 
 - (void)imageClick{
     VCDonateProfile *vc = [[VCDonateProfile alloc]init];
+    vc.userId = self.userId;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

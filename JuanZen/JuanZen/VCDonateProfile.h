@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VCDonateProfile : UIViewController
-
+@property (nonatomic, strong) NSString *userId;
 @end

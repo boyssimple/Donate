@@ -356,7 +356,7 @@
     }
     
     NSDictionary *dict = @{@"apikey":APIKEY,
-                           @"user_id":@"378",
+                           @"user_id":@"416",
                            @"user_name":self.companyName,
                            @"user_phone":self.phone,
                            @"contact_type":@(self.contactTypeId),
@@ -377,6 +377,7 @@
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
+            self.modified = FALSE;
             [self showHint:@"提交成功!"];
         }else {
             NSLog(@"%@",responseObject[@"msg"]);

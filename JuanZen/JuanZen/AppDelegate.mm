@@ -12,7 +12,7 @@
 #import "MainViewController.h"
 #import "UIBaseNav.h"
 #import "MapViewController.h"
-#import "VipDataViewController.h"
+#import "VCMyProfile.h"
 
 
 @interface AppDelegate (){
@@ -40,7 +40,7 @@
     if (!savedVersion) {
         vc = [[MainViewController alloc]init];
     }else{
-        vc = [[VipDataViewController alloc]init];//[[VCMap alloc]init];
+        vc = [[VCMyProfile alloc]init];//[[VCMap alloc]init];
     }
     UIBaseNav *nav = [[UIBaseNav alloc]initWithRootViewController:vc];
     self.window.rootViewController = nav;

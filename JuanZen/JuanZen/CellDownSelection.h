@@ -33,6 +33,7 @@
 @protocol CellDownSelectionDelegate <NSObject>
 
 - (void)selectCell:(NSInteger)type with:(NSIndexPath*)index;//  0表示选择    1表示           2 表示图片删除
+@optional
 - (void)deleteImg:(NSInteger)curIndex with:(NSIndexPath*)index;// 图片删除
 
 @end

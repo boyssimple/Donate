@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSString *myAddress;//我的地址
 @property (nonatomic, strong) NSString *detailAddress;//详细地址
 @property (nonatomic, strong) UIImage *img;
+@property (nonatomic, strong) NSString *imgUrl;
 @property (nonatomic, assign) BOOL modified;
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, strong) NSString *pCode;
@@ -84,7 +85,7 @@
 - (void)loadData{
     [self showHudInView:self.view hint:@"加载数据..."];
     NSString *urlstring = [NSString stringWithFormat:@"/api.php/index/u_info"];
-    NSDictionary *parmas = @{@"apikey":APIKEY,@"user_id":@(378)};
+    NSDictionary *parmas = @{@"apikey":APIKEY,@"user_id":@(416)};
     __weak typeof(self) weakself = self;
     
     [[RequsetPostTool requestNewWorkWithBaseURL]POST:urlstring parameters:parmas progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -105,12 +106,10 @@
 - (void)handleData:(NSDictionary*)data{
     NSString *url = [data objectForKey:@"head_graphic"];
     if(url && ![url isKindOfClass:[NSNull class]]){
-        UIImageView *iv = [[UIImageView alloc]init];
-        [iv sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            self.img = image;
-            [self.table reloadData];
-        }];
+        self.imgUrl = [NSString stringWithFormat:@"%@%@",IMAGEURL,url];
     }
+    
+    
     self.companyName = [data objectForKey:@"user_name"];
     if (!self.companyName || [self.companyName isKindOfClass:[NSNull class]]) {
         self.companyName = @"";
@@ -225,6 +224,9 @@
         if (self.img) {
             cell.ivPhoto.image = self.img;
             cell.ivPhoto.hidden = NO;
+        }else if(self.imgUrl){
+            [cell.ivPhoto sd_setImageWithURL:[NSURL URLWithString:self.imgUrl]];
+            cell.ivPhoto.hidden = NO;
         }else{
             cell.ivPhoto.hidden = YES;
         }
@@ -237,7 +239,7 @@
         cell.title = @"电话号码";
         cell.type = 1;
         cell.tfText.tag = 101;
-        [cell updateData:self.companyName withType:1];
+        [cell updateData:self.phone withType:1];
     }else if (indexPath.row == 3) {
         cell.title = @"联系方式";
         cell.type = 2;
@@ -327,7 +329,6 @@
 
 - (void)submitClick{
     [self.view endEditing:YES];
-    [self showHudInView:self.view hint:@"数据处理..."];
     
     if (self.companyName.length == 0) {
         Alert(@"请填写公司名称");
@@ -367,6 +368,7 @@
                            @"is_reco":@(self.selected)};
     NSString     *urlString = [NSString stringWithFormat:@"%@",@"/api.php/index/user_save"];
     
+    [self showHudInView:self.view hint:@"数据处理..."];
     [[RequsetPostTool requestNewWorkWithBaseURL] POST:urlString parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if(self.modified && self.img){
             NSData *data = UIImagePNGRepresentation(self.img);

@@ -68,7 +68,7 @@
     self.lbName.text = [[data objectForKey:@"info"] objectForKey:@"user_name"];
     NSString *url = [[data objectForKey:@"info"] objectForKey:@"head_graphic"];
     if(url && ![url isKindOfClass:[NSNull class]]){
-        [self.ivPhoto sd_setImageWithURL:[NSURL URLWithString:url]];
+        [self.ivPhoto sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEURL,url]]];
     }
     self.starRateView.scorePercent = [[[data objectForKey:@"info"] objectForKey:@"evaluate"]floatValue];
     [self setNeedsLayout];

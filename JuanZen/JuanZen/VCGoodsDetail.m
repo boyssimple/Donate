@@ -10,8 +10,9 @@
 #import "CellDownSelection.h"
 #import "ViewHeaderGoods.h"
 #import "VCWantGet.h"
+#import "VCDonateProfile.h"
 
-@interface VCGoodsDetail ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate>
+@interface VCGoodsDetail ()<UITableViewDelegate,UITableViewDataSource,CellDownSelectionDelegate,ViewHeaderGoodsDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UIButton  *btnSubmit;
 @property (nonatomic, strong) ViewHeaderGoods  *header;
@@ -196,6 +197,11 @@
      
 }
 
+- (void)imageClick{
+    VCDonateProfile *vc = [[VCDonateProfile alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (UITableView*)table{
     if (!_table) {
         _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 40 - 64) style:UITableViewStyleGrouped];
@@ -224,6 +230,7 @@
 - (ViewHeaderGoods*)header{
     if(!_header){
         _header = [[ViewHeaderGoods alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, [ViewHeaderGoods calHeight])];
+        _header.delegate = self;
     }
     
     return _header;

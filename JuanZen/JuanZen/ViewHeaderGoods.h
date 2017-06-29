@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol ViewHeaderGoodsDelegate;
 @interface ViewHeaderGoods : UIView
+@property (nonatomic,weak)   id<ViewHeaderGoodsDelegate> delegate;
 - (void)updateData:(NSDictionary*)data;
 + (CGFloat)calHeight;
+
+@end
+
+@protocol ViewHeaderGoodsDelegate <NSObject>
+
+- (void)imageClick;
+
 @end

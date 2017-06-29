@@ -38,8 +38,11 @@
         _ivPhoto.layer.borderColor = RGB3(221).CGColor;
         _ivPhoto.layer.borderWidth = 4.f;
         _ivPhoto.clipsToBounds = YES;
+        _ivPhoto.userInteractionEnabled = YES;
         [self addSubview:_ivPhoto];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgClick)];
+        [_ivPhoto addGestureRecognizer:tap];
         
         _lbName = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbName.font = [UIFont systemFontOfSize:14];
@@ -65,12 +68,18 @@
     return self;
 }
 
+- (void)imgClick{
+    if ([self.delegate respondsToSelector:@selector(imageClick)]) {
+        [self.delegate imageClick];
+    }
+}
+
 - (void)updateData:(NSDictionary*)data{
     self.lbTitle.text = [[data objectForKey:@"info"] objectForKey:@"goods_name"];
     self.lbName.text = [[data objectForKey:@"u_info"] objectForKey:@"user_name"];
     NSString *url = [[data objectForKey:@"u_info"] objectForKey:@"head_graphic"];
     if(url && ![url isKindOfClass:[NSNull class]]){
-        [self.ivPhoto sd_setImageWithURL:[NSURL URLWithString:url]];
+        [self.ivPhoto sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEURL,url]]];
     }
     NSMutableArray *images = [NSMutableArray array];
     NSArray *imagesURLStrings = [data objectForKey:@"imglist"];

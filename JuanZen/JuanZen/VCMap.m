@@ -38,8 +38,8 @@
     BMKLocationService           *_locationService;//定位
     BMKPoiSearch                 *_poiSearch;//检索
     BMKGeoCodeSearch             *_citySearchOption;
-    NSString *longitude;//经度
-    NSString *latitude;//纬度
+    NSString *longitudeStr;//经度
+    NSString *latitudeStr;//纬度
     
     
 }
@@ -56,6 +56,7 @@
 @property (nonatomic, strong) UIView *vMapBg;
 @property (nonatomic, strong) BMKMapView  *mapView;
 @property (nonatomic, assign) CGFloat height;
+@property (nonatomic, assign) NSInteger typeId;
 @end
 
 @implementation VCMap
@@ -86,6 +87,35 @@
     [self.view addSubview:self.btnWish];
     [self.view addSubview:self.btnDonate];
     [self loadClassData];
+    
+    
+    
+    UIButton  *leftBtn = [[UIButton alloc]  initWithFrame:CGRectMake(0, 0, 25, 25)];
+    [leftBtn setImage:[UIImage imageNamed:@"SearchBtn"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:leftBtn ];
+    [leftBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton  *rightBtn = [[UIButton alloc]  initWithFrame:CGRectMake(0 , 0, 25, 25)];
+    [rightBtn setImage:[UIImage imageNamed:@"PeopleBtn"] forState:UIControlStateNormal];
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    [rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = left;
+    self.navigationItem.rightBarButtonItem = right;
+
+}
+
+- (void)leftClick{
+    [self.view endEditing:YES];
+    [self search:0 with:self.tfSearch.text];
+}
+
+- (void)rightClick{
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -94,11 +124,12 @@
 
 -(void)SetBasicLocation:(BMKUserLocation *)location{
     
-    NSString * latitudes = [NSString stringWithFormat:@"%f",location.location.coordinate.latitude];
-    NSString * longitudes = [NSString stringWithFormat:@"%f",location.location.coordinate.longitude];
-    NSDictionary *dic = @{@"apikey":APIKEY,@"longitude":longitudes,@"latitude":latitudes};
-    NSString *url = [NSString stringWithFormat:@"/api.php/index/g_list"];
+    latitudeStr = [NSString stringWithFormat:@"%f",location.location.coordinate.latitude];
+    longitudeStr = [NSString stringWithFormat:@"%f",location.location.coordinate.longitude];
+//    NSDictionary *dic = @{@"apikey":APIKEY,@"longitude":longitudeStr,@"latitude":latitudeStr};
+//    NSString *url = [NSString stringWithFormat:@"/api.php/index/g_list"];
     //    NSDictionary *dic = @{@"appkey":APIKEY,@"longitude":@"106.530721",@"latitude":@"29.533453"};
+    /*
     [[RequsetPostTool requestNewWorkWithBaseURL]POST:url parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         array =responseObject[@"list"];
         
@@ -122,6 +153,58 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
+     */
+    
+    [self search:self.typeId with:self.tfSearch.text];
+}
+
+- (void)search:(NSInteger)typeId with:(NSString*)keywords{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];//@{@"apikey":APIKEY,@"longitude":longitudes,@"latitude":latitudes};
+    [dic setObject:APIKEY forKey:@"apikey"];
+    if (typeId != 0) {
+        [dic setObject:@(typeId) forKey:@"type_id"];
+    }
+    if (keywords && ![keywords isEqualToString:@""]) {
+        [dic setObject:keywords forKey:@"goods_name"];
+    }
+    
+    if(latitudeStr && ![latitudeStr isEqualToString:@""]){
+        [dic setObject:latitudeStr forKey:@"latitude"];
+    }
+    if(longitudeStr && ![longitudeStr isEqualToString:@""]){
+        [dic setObject:longitudeStr forKey:@"longitude"];
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"/api.php/index/g_list"];
+    
+    [[RequsetPostTool requestNewWorkWithBaseURL]POST:url parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        array =responseObject[@"list"];
+        
+        for (int i=0; i<array.count; i++) {
+            BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+            NSDictionary *dic = array[i];
+            CGFloat longitudeValue = [dic[@"longitude"] floatValue];
+            CGFloat latitudeValue = [dic[@"latitude"] floatValue];
+            NSString *goodsname = dic[@"goods_name"];
+            NSString *ho_number = dic[@"ho_number"];
+//            NSString *goods_id = dic[@"goods_id"];
+            annotation.coordinate = CLLocationCoordinate2DMake(latitudeValue,longitudeValue);
+            annotation.title = ho_number;
+            annotation.subtitle = goodsname;
+            //            [_mapView  setCenterCoordinate:annotationModel.coordinate zoomLevel:13 animated:NO];
+            [_mapView setCenterCoordinate:annotation.coordinate animated:YES];
+            [_mapView addAnnotation:annotation];
+            [_mapView mapForceRefresh];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self showHint:@"加载失败!"];
+        
+    }];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 
 #pragma mark --private Method--定位
@@ -247,7 +330,7 @@
             
             weakself.classList = [[responseObject objectForKey:@"list"] mutableCopy];
             NSDictionary *dic1 = @{@"type":@"1",@"bg_img":@"Wish",@"type_title":@"附近许愿"};
-            NSDictionary *dic2 = @{@"type":@"1",@"bg_img":@"AllSelected",@"type_title":@"全 选"};
+            NSDictionary *dic2 = @{@"type":@"1",@"bg_img":@"AllSelected",@"type_title":@"全部免费"};
             [weakself.classList addObject:dic1];
             [weakself.classList addObject:dic2];
             NSInteger num = weakself.classList.count/3;
@@ -338,6 +421,69 @@
     return CGSizeMake(w, 40);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.classList.count >= 2 && indexPath.row == self.classList.count-2) {
+        //附近
+        NSLog(@"附近");
+        [self loadnearby];
+    }else if(self.classList.count >= 2 &&  indexPath.row == self.classList.count-1){
+        //全部
+        NSLog(@"全部");
+        [self search:0 with:nil];
+        self.tfSearch.text = @"";
+    }else{
+        NSDictionary *data = [self.classList objectAtIndex:indexPath.row];
+        [self search:[[data objectForKey:@"type_id"]integerValue] with:nil];
+    }
+}
+
+
+- (void)loadnearby{
+    [self showHudInView:self.view hint:@"数据加载..."];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];//@{@"apikey":APIKEY,@"longitude":longitudes,@"latitude":latitudes};
+    [dic setObject:APIKEY forKey:@"apikey"];
+    NSString *keywords = self.tfSearch.text;
+    if (keywords && ![keywords isEqualToString:@""]) {
+        [dic setObject:keywords forKey:@"goods_name"];
+    }
+    
+    if(latitudeStr && ![latitudeStr isEqualToString:@""]){
+        [dic setObject:latitudeStr forKey:@"latitude"];
+    }
+    if(longitudeStr && ![longitudeStr isEqualToString:@""]){
+        [dic setObject:longitudeStr forKey:@"longitude"];
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"/api.php/index/wish_list"];
+    
+    [[RequsetPostTool requestNewWorkWithBaseURL]POST:url parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self hideHud];
+        array = responseObject[@"list"];
+        
+        for (int i=0; i<array.count; i++) {
+            BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+            NSDictionary *dic = array[i];
+            CGFloat longitudeValue = [dic[@"longitude"] floatValue];
+            CGFloat latitudeValue = [dic[@"latitude"] floatValue];
+            NSString *goodsname = dic[@"goods_name"];
+            NSString *ho_number = dic[@"ho_number"];
+            //            NSString *goods_id = dic[@"goods_id"];
+            annotation.coordinate = CLLocationCoordinate2DMake(latitudeValue,longitudeValue);
+            annotation.title = ho_number;
+            annotation.subtitle = goodsname;
+            //            [_mapView  setCenterCoordinate:annotationModel.coordinate zoomLevel:13 animated:NO];
+            [_mapView setCenterCoordinate:annotation.coordinate animated:YES];
+            [_mapView addAnnotation:annotation];
+            [_mapView mapForceRefresh];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self hideHud];
+        [self showHint:@"加载失败!"];
+        
+    }];
+}
+
 - (void)wishClick{
     VCWantWish *vc = [[VCWantWish alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -392,7 +538,7 @@
 
 - (UIView*)vBg{
     if(!_vBg){
-        _vBg = [[UIView alloc]initWithFrame:CGRectMake(50, 5, ScreenWidth - 100, 34)];
+        _vBg = [[UIView alloc]initWithFrame:CGRectMake(60, 5, ScreenWidth - 120, 34)];
         _vBg.layer.cornerRadius = 17.f;
         _vBg.layer.masksToBounds = YES;
         _vBg.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2];

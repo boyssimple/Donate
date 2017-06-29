@@ -89,6 +89,7 @@ typedef NS_ENUM(NSUInteger, YJPopoverArrowDirection) {
 
 #define APPKEY @"fjm1hLsIQGtszqFS0ePZKCCQDncndCmp"
 #define SIGNENTER @"SIGNENTER"
+#define USERSIGN @"USERSIGN"
 
 
 

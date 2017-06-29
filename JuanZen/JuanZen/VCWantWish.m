@@ -223,6 +223,7 @@
 
 - (void)selectCell:(NSInteger)type with:(NSIndexPath *)index{
     NSLog(@"%zi",type);
+    [self.view endEditing:YES];
     if(type == 0 || type == 1){
         if (index.row == 0) {
             [self loadClassData];

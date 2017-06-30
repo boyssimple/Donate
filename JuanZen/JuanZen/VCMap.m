@@ -27,7 +27,7 @@
 
 
 @interface VCMap ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,UITextFieldDelegate,UICollectionViewDelegate,
-    UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource>
+    UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
     NSArray *array;
@@ -52,7 +52,6 @@
 @property (nonatomic, strong) UIView *vCollBg;
 @property (nonatomic, strong) UICollectionView *collView;
 @property (nonatomic, strong) NSMutableArray *classList;
-@property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UIView *vMapBg;
 @property (nonatomic, strong) BMKMapView  *mapView;
 @property (nonatomic, assign) CGFloat height;
@@ -83,7 +82,11 @@
     _listArray=[[ NSMutableArray alloc] init];
     [self initlocationService];
     
-    [self.view addSubview:self.table];
+    [self.view addSubview:self.lbInfo];
+    [self.view addSubview:self.mapView];
+    [self.view addSubview:self.collView];
+    
+    
     [self.view addSubview:self.btnWish];
     [self.view addSubview:self.btnDonate];
     [self loadClassData];
@@ -107,6 +110,26 @@
     self.navigationItem.leftBarButtonItem = left;
     self.navigationItem.rightBarButtonItem = right;
 
+}
+
+- (void)viewWillLayoutSubviews{
+    CGFloat height = ScreenHeight - 232 - self.lbInfo.mj_h  - self.collView.mj_h;
+    
+    CGRect r = self.lbInfo.frame;
+    r.origin.x = 10;
+    r.origin.y = 30;
+    self.lbInfo.frame = r;
+    
+    r = self.mapView.frame;
+    r.origin.x = 10;
+    r.origin.y = self.lbInfo.mj_y + self.lbInfo.mj_h + 30;
+    r.size.height = height;
+    self.mapView.frame = r;
+    
+    r = self.collView.frame;
+    r.origin.x = 10;
+    r.origin.y = self.mapView.mj_y + self.mapView.mj_h + 30;
+    self.collView.frame = r;
 }
 
 - (void)leftClick{
@@ -337,10 +360,10 @@
             if (weakself.classList.count%3 != 0) {
                 num ++;
             }
-            weakself.collView.mj_h = num * 40 + (num - 1)*5;
             weakself.height = num * 40 + (num - 1)*5;
-            [weakself.table reloadData];
+            weakself.collView.mj_h = weakself.height;
             [weakself.collView reloadData];
+            [weakself viewWillLayoutSubviews];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -348,51 +371,6 @@
         NSLog(@"error");
     }];
 }
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 0;
-}
-
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 60;
-    }else if(section == 1){
-        return 300;
-    }
-    return self.height;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if(section == 1){
-        return 30;
-    }
-    return 0.0001f;
-}
-
-
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return self.vInfoBg;
-    }else if(section == 1){
-        return self.vMapBg;
-    }else{
-        return self.vCollBg;
-    }
-}
-
-
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -554,19 +532,6 @@
         _tfSearch.delegate = self;
     }
     return _tfSearch;
-}
-
-- (UITableView*)table{
-    if (!_table) {
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 50) style:UITableViewStyleGrouped];
-        _table.dataSource = self;
-        _table.delegate = self;
-        _table.backgroundColor = [UIColor whiteColor];
-        _table.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
-        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _table.showsVerticalScrollIndicator = NO;
-    }
-    return _table;
 }
 
 - (UIView*)vMapBg{

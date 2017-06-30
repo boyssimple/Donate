@@ -174,7 +174,7 @@
     
     r = self.vBg.frame;
     r.size.width = ScreenWidth - 20;
-    r.size.height = self.lbAddressText.mj_y + self.lbAddressText.mj_h + self.lbDonate.mj_y;
+    r.size.height = self.mj_h;
     r.origin.x = 10;
     r.origin.y = 0;
     self.vBg.frame = r;
@@ -184,7 +184,7 @@
     if (type == 0) {
         return 40;
     }
-    return 107;
+    return 97;
 }
 
 @end

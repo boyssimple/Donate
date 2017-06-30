@@ -113,22 +113,22 @@
 }
 
 - (void)viewWillLayoutSubviews{
-    CGFloat height = ScreenHeight - 232 - self.lbInfo.mj_h  - self.collView.mj_h;
+    CGFloat height = ScreenHeight - 64 - 60 - 48 - self.lbInfo.mj_h  - self.collView.mj_h;
     
     CGRect r = self.lbInfo.frame;
     r.origin.x = 10;
-    r.origin.y = 30;
+    r.origin.y = 15;
     self.lbInfo.frame = r;
     
     r = self.mapView.frame;
     r.origin.x = 10;
-    r.origin.y = self.lbInfo.mj_y + self.lbInfo.mj_h + 30;
+    r.origin.y = self.lbInfo.mj_y + self.lbInfo.mj_h + 15;
     r.size.height = height;
     self.mapView.frame = r;
     
     r = self.collView.frame;
     r.origin.x = 10;
-    r.origin.y = self.mapView.mj_y + self.mapView.mj_h + 30;
+    r.origin.y = self.mapView.mj_y + self.mapView.mj_h + 15;
     self.collView.frame = r;
 }
 
